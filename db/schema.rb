@@ -48,10 +48,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_29_185141) do
   create_table "pets", force: :cascade do |t|
     t.string "name"
     t.integer "specie_id"
-    t.integer "owner_id"
+    t.integer "people_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["owner_id"], name: "index_pets_on_owner_id"
+    t.index ["people_id"], name: "index_pets_on_people_id"
     t.index ["specie_id"], name: "index_pets_on_specie_id"
   end
 
@@ -71,5 +71,4 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_29_185141) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "pets", "owners"
 end

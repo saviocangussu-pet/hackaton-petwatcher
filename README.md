@@ -20,6 +20,14 @@ Leverage Fido Tabby to connect pet owners with people can watch pets in their lo
 - [ ] Filter by breed
 - [ ] ~~Schedule system~~
 
+## Steps
+
+- Authentication / Registration
+- Geolocation methods (proximity) - Sávio
+- Pages
+  - Pet CRUD - Franco
+  - Review CRUD - Nehama
+
 ## Technical details
 
 - Authentication: Devise (out of box)

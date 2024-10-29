@@ -1,0 +1,7 @@
+<h1><%= @pet.name %></h1>
+<p>Specie: <%= @pet.specie.name if @pet.specie %></p>
+<p>Owner: <%= @pet.owner.name if @pet.owner %></p>
+
+<%= link_to 'Edit', edit_pet_path(@pet) %> |
+<%= link_to 'Destroy', pet_path(pet), method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= link_to 'Back', pets_path %>

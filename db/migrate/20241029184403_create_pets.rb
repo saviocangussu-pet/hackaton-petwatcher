@@ -4,7 +4,7 @@ class CreatePets < ActiveRecord::Migration[7.1]
       t.string :name
 
       t.references :specie
-      t.references :owner, foreign_key: { to: :people }
+      t.references :people
 
       t.timestamps
     end

@@ -23,3 +23,12 @@ species_names = [Specie::CAT, Specie::DOG]
 Specie.create!(species_names.map { |name| { name: name } })
 
 puts "Seeded Species"
+
+Pet.create!([
+  { name: 'Whiskers', specie: Specie.all.sample , owner: Person.all.sample },
+  { name: 'Fido', specie: Specie.all.sample , owner: Person.all.sample },
+  { name: 'Tweety', specie: Specie.all.sample , owner: Person.all.sample },
+  { name: 'Rex', specie: Specie.all.sample , owner: Person.all.sample }
+])
+
+puts "Seeded Pets"
