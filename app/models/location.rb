@@ -1,29 +1,47 @@
+# frozen_string_literal: true
+
 class Location < ApplicationRecord
-  EARTH_RADIUS_KM = 6371.0
+  EARTH_RADIUS = {
+    km: 6371.0,
+    mi: 3958.8
+  }.freeze
 
-  def distance_from(location)
-    delta_latitude = location.radian_latitude - radian_latitude
-    delta_longitude = location.radian_longitude - radian_longitude
+  class << self
+    def distance_from_query(latitude, longitude, unit: :km)
+      haversine = harversine_arel(latitude, longitude)
+      complete_harversine = Arel.sql('2 * atan2(sqrt(:haversine), sqrt(1 - :haversine))', haversine:)
 
-    a = (Math.sin(delta_latitude / 2) * Math.sin(delta_latitude / 2)) +
-    (Math.cos(radian_latitude) * Math.cos(location.radian_latitude) *
-    Math.sin(delta_longitude / 2) * Math.sin(delta_longitude / 2))
-    c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+      Arel.sql('(? * ?) as distance', complete_harversine, EARTH_RADIUS[unit])
+    end
 
-    EARTH_RADIUS_KM * c
+    def harversine_arel(latitude, longitude)
+      lat2 = degree_to_radian(latitude)
+      lat1 = degree_to_radian(Location.arel_table[:latitude])
+
+      delta_latitude = Arel.sql('(? - ?)', lat2, lat1)
+      delta_longitude = Arel.sql('(? - ?)', degree_to_radian(longitude),
+                                 degree_to_radian(Location.arel_table[:longitude]))
+
+      Arel.sql(haversine_formula_sql, delta_latitude:, delta_longitude:, lat1:, lat2:)
+    end
+
+    def haversine_formula_sql
+      <<~SQL
+        (
+          pow(sin(:delta_latitude / 2), 2) +
+          cos(:lat2)*
+          cos(:lat1)*
+          pow(sin(:delta_longitude / 2),  2)
+        )
+      SQL
+    end
+
+    def degree_to_radian(field)
+      Arel.sql('(? * pi() / 180)', field)
+    end
   end
 
-  def radian_latitude
-    self.class.deg_to_rad(latitude)    
-  end
-
-  def radian_longitude
-    self.class.deg_to_rad(longitude)    
-  end
-
-  private
-
-  def self.deg_to_rad(degrees)
-    degrees * Math::PI / 180
+  def closest_sitters(limit = 10)
+    Person.sitters.closests(self).limit(limit)
   end
 end

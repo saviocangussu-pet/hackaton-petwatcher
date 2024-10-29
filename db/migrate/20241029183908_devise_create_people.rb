@@ -10,8 +10,6 @@ class DeviseCreatePeople < ActiveRecord::Migration[7.1]
       t.boolean :owner, default: false
       t.boolean :sitter, default: false
 
-      t.references :location
-
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""

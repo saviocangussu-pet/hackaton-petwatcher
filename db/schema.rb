@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_29_185141) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_29_211648) do
   create_table "locations", force: :cascade do |t|
     t.decimal "latitude"
     t.decimal "longitude"
@@ -23,7 +23,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_29_185141) do
     t.string "phone", null: false
     t.boolean "owner", default: false
     t.boolean "sitter", default: false
-    t.integer "location_id"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -32,7 +31,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_29_185141) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_people_on_email", unique: true
-    t.index ["location_id"], name: "index_people_on_location_id"
     t.index ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true
   end
 
@@ -63,6 +61,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_29_185141) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reviewable_type", "reviewable_id"], name: "index_reviews_on_reviewable"
+  end
+
+  create_table "sitter_profiles", force: :cascade do |t|
+    t.integer "person_id"
+    t.integer "location_id"
+    t.decimal "rate"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_sitter_profiles_on_location_id"
+    t.index ["person_id"], name: "index_sitter_profiles_on_person_id"
   end
 
   create_table "species", force: :cascade do |t|
