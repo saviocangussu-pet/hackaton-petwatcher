@@ -17,7 +17,7 @@
         <td><%= pet.owner.name if pet.owner %></td>
         <td><%= link_to 'Show', pet_path(pet) %></td>
         <td><%= link_to 'Edit', edit_pet_path(pet) %></td>
-        <td><%= link_to 'Destroy', pet_path(pet), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+        <td><%= link_to "Delete", pet_path(pet), data: { turbo_method: "delete" } %></td>
       </tr>
     <% end %>
   </tbody>

@@ -43,7 +43,7 @@ class PetsController < ApplicationController
 
   def destroy
     @pet.destroy
-    redirect_to pets_url, notice: 'Pet was successfully destroyed.'
+    redirect_to pets_path, notice: 'Pet was successfully destroyed.'
   end
 
   private
