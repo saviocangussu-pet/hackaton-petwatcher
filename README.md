@@ -11,13 +11,18 @@ Leverage Fido Tabby to connect pet owners with people can watch pets in their lo
 
 ## Features
 
-- [ ] Find sitter by proximity
-- [ ] Filter by breed
+- [X] Find sitter by proximity
+- [X] Dual profile (Sitter and Owner at the same time)
+- [X] Rating system (stars and comments)
 - [ ] Owner/Pet/Sitter picture
-- [ ] Accept match service in-app (Match before providing phone     )
-- [ ] Schedule system
-- [ ] Rating system (stars and comments)
 - [ ] Pet details
+- [ ] Accept match service in-app (Match before providing phone)
+- [ ] Filter by breed
+- [ ] ~~Schedule system~~
+
+## Technical details
+
+- Authentication: Devise (out of box)
 
 ## Entity Diagram
 
@@ -26,21 +31,18 @@ Leverage Fido Tabby to connect pet owners with people can watch pets in their lo
 title: PetWatcher ER
 ---
 erDiagram
-  OWNER }|--|| PET : have
-  OWNER ||--|| LOCATION : uses
-  SITTER ||--|| LOCATION : uses
-  SITTER }|--o{ SPECIE : accepts
+  PERSON }|--|| PET : have
+  PERSON ||--|| LOCATION : uses
+  PERSON }|--o{ SPECIE : accepts
   PET ||--o{ SPECIE : has
+  PET ||--o{ REVIEW : have
+  PERSON ||--o{ REVIEW : have
 
-  OWNER {
+  PERSON {
     bigint id
     string name
     string phone
-  }
-  SITTER {
-    bigint id
-    string name
-    string phone
+    string[] roles
   }
   PET {
     bigint id
@@ -54,5 +56,11 @@ erDiagram
     bigint id
     decimal latitude
     decimal longitude
+  }
+  REVIEW {
+    bigint id
+    int stars
+    string comment
+    string type
   }
 ```
