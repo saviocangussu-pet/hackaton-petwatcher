@@ -4,6 +4,8 @@ class Person < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  validates_presence_of :name, :email, :phone
+
   has_one :sitter_profile
 
   has_many :pets, dependent: :destroy, foreign_key: :people_id
