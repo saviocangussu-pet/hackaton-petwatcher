@@ -41,6 +41,7 @@ erDiagram
   PERSON {
     bigint id
     string name
+    string email
     string phone
     string[] roles
   }
