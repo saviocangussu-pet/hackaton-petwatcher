@@ -1,12 +1,13 @@
-<h1>Sitter Services</h1>
-<ul>
+<h1 class="title">Sitter Services</h1>
+
+<ul class="list-group">
   <% @sitter_services.each do |service| %>
-    <li>
+    <li class="list-group-item">
       <strong>Pet:</strong> <%= service.pet.name %><br>
-      <strong>Start Date:</strong> <%= service.start_date %><br>
-      <strong>End Date:</strong> <%= service.end_date %><br>
+      <strong>Start Date:</strong> <%= service.start_date.strftime("%B %d, %Y") %><br>
+      <strong>End Date:</strong> <%= service.end_date.strftime("%B %d, %Y") %><br>
       <strong>Total Rate:</strong> <%= number_to_currency(service.total_rate) %><br>
-      <%= link_to 'Add Review',  sitter_path(service) %>
+      <%= link_to 'Add Review', sitter_path(service), class: 'btn btn-primary' %>
     </li>
   <% end %>
 </ul>

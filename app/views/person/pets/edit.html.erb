@@ -1,10 +1,9 @@
-<h1>Edit Pet: <%= @pet.name %></h1>
+<h1 class="title">Edit Pet: <%= @pet.name %></h1>
 
-<%= form_with(model: @pet, local: true) do |form| %>
+<%= form_with(model: @pet, local: true, class: 'needs-validation', novalidate: true) do |form| %>
   <% if @pet.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="alert alert-danger">
       <h2><%= pluralize(@pet.errors.count, "error") %> prohibited this pet from being saved:</h2>
-
       <ul>
         <% @pet.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -13,37 +12,38 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+  <div class="mb-3">
+    <%= form.label :name, class: 'form-label' %>
+    <%= form.text_field :name, class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= form.label :specie_id, "Species" %>
-    <%= form.collection_select :specie_id, Specie.all, :id, :name, selected: @pet.specie_id %>
+  <div class="mb-3">
+    <%= form.label :specie_id, "Species", class: 'form-label' %>
+    <%= form.collection_select :specie_id, Specie.all, :id, :name, { selected: @pet.specie_id }, { class: 'form-select' } %>
   </div>
 
-  <% if @pet.image.attached? %>
-    <div class="pet-image">
-      <%= image_tag @pet.image, style: "width: 10em;"%>
-    </div>
-  <% else %>
-    <%= image_tag 'no-image-profile.png', style: "width: 10em;", class: "profile-image" %>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :image %>
-    <%= form.file_field :image %>
+  <div class="mb-3">
+    <% if @pet.image.attached? %>
+      <div class="pet-image mb-3">
+        <%= image_tag @pet.image, style: "width: 10em;" %>
+      </div>
+    <% else %>
+      <%= image_tag 'no-image-profile.png', style: "width: 10em;", class: "profile-image" %>
+    <% end %>
   </div>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description, rows: 4, class: "form-control" %>
+  <div class="mb-3">
+    <%= form.label :image, class: 'form-label' %>
+    <%= form.file_field :image, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :description, class: 'form-label' %>
+    <%= form.text_area :description, rows: 4, class: 'form-control' %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Update Pet", class: 'btn btn-primary' %>
+    <%= link_to 'Back to My Pets', pets_path(current_person), class: 'btn btn-secondary' %>
   </div>
 <% end %>
-
-<%= link_to 'Back to My Pets', pets_path(current_person) %>

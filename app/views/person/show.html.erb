@@ -1,52 +1,65 @@
-<h1>My Profile</h1>
+<h1 class="title">My Profile</h1>
 
-<div class="profile-image">
+<div class="profile-image mb-3">
   <% if @person.profile_image.attached? %>
-    <%= image_tag @person.profile_image %>
+    <%= image_tag @person.profile_image, class: "img-fluid" %>
   <% else %>
-    <%= image_tag 'no-image-profile.png', size: "50x50", class: "profile-image" %>
+    <%= image_tag 'no-image-profile.png', size: "50x50", class: "profile-image img-fluid" %>
   <% end %>
 </div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @person.name %>
-</p>
+<div class="mb-3">
+  <p>
+    <strong>Name:</strong>
+    <%= @person.name %>
+  </p>
+</div>
 
-<p>
-  <strong>Email:</strong>
-  <%= @person.email %>
-</p>
+<div class="mb-3">
+  <p>
+    <strong>Email:</strong>
+    <%= @person.email %>
+  </p>
+</div>
 
-<p>
-  <strong>Phone:</strong>
-  <%= @person.phone %>
-</p>
+<div class="mb-3">
+  <p>
+    <strong>Phone:</strong>
+    <%= @person.phone %>
+  </p>
+</div>
 
 <% if @person.sitter? && @person.sitter_profile %>
-  <p>
-    <strong>Description:</strong>
-    <%= @person.sitter_profile.description %>
-  </p>
+  <div class="mb-3">
+    <p>
+      <strong>Description:</strong>
+      <%= @person.sitter_profile.description %>
+    </p>
+  </div>
 
-  <p>
-    <strong>Price:</strong>
-    <%= @person.sitter_profile.rate %>
-  </p>
+  <div class="mb-3">
+    <p>
+      <strong>Price:</strong>
+      <%= number_to_currency(@person.sitter_profile.rate) %>
+    </p>
+  </div>
 
-  <p>
-    <strong>Preferred Species:</strong>
-    <%= @person.sitter_profile.species.map { |s| s.name.capitalize }.join(', ') %>
-  </p>
-
-
+  <div class="mb-3">
+    <p>
+      <strong>Preferred Species:</strong>
+      <%= @person.sitter_profile.species.map { |s| s.name.capitalize }.join(', ') %>
+    </p>
+  </div>
 <% end %>
 
-<p>
-  <strong>Location:</strong>
-  <%= @person.location.latitude %>,
-  <%= @person.location.longitude %>
-</p>
+<div class="mb-3">
+  <p>
+    <strong>Location:</strong>
+    <%= @person.location.latitude %>,
+    <%= @person.location.longitude %>
+  </p>
+</div>
 
-
-<%= link_to 'Edit Profile', edit_person_path %>
+<div class="actions mb-3">
+  <%= link_to 'Edit Profile', edit_person_path, class: 'btn btn-primary' %>
+</div>
