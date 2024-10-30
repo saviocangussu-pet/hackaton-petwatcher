@@ -1,34 +1,18 @@
 <h2>Sign up</h2>
 
 <script>
-  // I am not front-end, this is not rught but it works
-  document.addEventListener("turbo:load", function() {
-    const submitButton = document.getElementById("submit_button");
-    const locationMessage = document.getElementById("location_message");
-    const latitudeField = document.getElementById("location_attributes_latitude");
-    const longitudeField = document.getElementById("location_attributes_longitude");
+  // This is NOT the right way to do it, I am not a front-end
 
-    if (!latitudeField || !longitudeField) return;
+  import("devise/registration").then((registration) => {
+    document.addEventListener("turbo:load", registration.updateLocation);
+    document.addEventListener("turbo:render", registration.updateLocation);
 
-    const enableSubmit = () => {
-      submitButton.disabled = false;
-      locationMessage.style.display = "none";
-    }
+    document.addEventListener("turbo:load", registration.updateSitterFields);
+    document.addEventListener("turbo:render", registration.updateSitterFields);
 
-    if (latitudeField.value && longitudeField.value) {
-      enableSubmit();
-    }
-    else {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          latitudeField.value = position.coords.latitude;
-          longitudeField.value = position.coords.longitude;
-
-          enableSubmit();
-        });
-      }
-    }
-  });
+    document.addEventListener("turbo:load", registration.addUpdateSitterFieldsCallbackToButton);
+    document.addEventListener("turbo:render", registration.addUpdateSitterFieldsCallbackToButton);
+  })
 </script>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
@@ -64,7 +48,7 @@
 
   <div class="field">
     <%= f.label :sitter, "I'm a sitter" %><br />
-    <%= f.check_box :sitter, id: "sitter_checkbox" %>
+    <%= f.check_box :sitter, id: "sitter_checkbox"  %>
   </div>
 
   <div id="sitter_fields" data-controller="sitter-fields" style="display: none;">
@@ -102,18 +86,5 @@
     <%= f.submit "Sign up", id: "submit_button", disabled: true %>
   </div>
 <% end %>
-
-<script type="text/javascript">
-  var checkbox = document.getElementById('sitter_checkbox');
-  var sitter_details = document.getElementById('sitter_fields');
-
-  checkbox.onchange = function() {
-    if(this.checked) {
-      sitter_details.style['display'] = 'block';
-    } else {
-      sitter_details.style['display'] = 'none';
-    }
-  };
-</script>
 
 <%= render "devise/shared/links" %>
