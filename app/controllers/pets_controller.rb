@@ -1,4 +1,5 @@
 class PetsController < ApplicationController
+  before_action :authenticate_person!
   before_action :set_pet, only: [:show, :edit, :update, :destroy]
 
   def index
