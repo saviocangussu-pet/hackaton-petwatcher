@@ -66,7 +66,7 @@ sitter = Person.create!(
   phone: Faker::PhoneNumber.phone_number,
   location_attributes: locations.sample,
   sitter_profile_attributes: {
-    rate: Faker::Commerce.price(range: 0..20.00),
+    rate: Faker::Commerce.price(range: 1..20.00),
     description: Faker::Lorem.sentence(word_count: 50),
     species: Specie.all
   }
