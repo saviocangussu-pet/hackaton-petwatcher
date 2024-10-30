@@ -1,6 +1,6 @@
-require "test_helper"
+require 'test_helper'
 
-class PeopleSpecieTest < ActiveSupport::TestCase
+class SitterProfileSpecieTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

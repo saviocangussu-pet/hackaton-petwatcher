@@ -64,7 +64,24 @@
 
   <div class="field">
     <%= f.label :sitter, "I'm a sitter" %><br />
-    <%= f.check_box :sitter %>
+    <%= f.check_box :sitter, id: "sitter_checkbox" %>
+  </div>
+
+  <div id="sitter_fields" data-controller="sitter-fields" style="display: none;">
+      <%= f.fields_for :sitter_profile_attributes do |location_fields| %>
+          <div class="field">
+            <%= location_fields.label 'Rate per hour' %><br />
+            <%= location_fields.text_field :rate %>
+          </div>
+          <div class="field">
+            <%= location_fields.label 'Accepted pets' %><br />
+            <%= location_fields.collection_check_boxes(:species_ids, Specie.all.order(name: :asc), :id, :name) %>
+          </div>
+          <div class="field">
+            <%= location_fields.label 'Description' %><br />
+            <%= location_fields.text_area(:description) %>
+          </div>
+      <% end %>
   </div>
 
   <div class="field">
@@ -85,5 +102,18 @@
     <%= f.submit "Sign up", id: "submit_button", disabled: true %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+  var checkbox = document.getElementById('sitter_checkbox');
+  var sitter_details = document.getElementById('sitter_fields');
+
+  checkbox.onchange = function() {
+    if(this.checked) {
+      sitter_details.style['display'] = 'block';
+    } else {
+      sitter_details.style['display'] = 'none';
+    }
+  };
+</script>
 
 <%= render "devise/shared/links" %>

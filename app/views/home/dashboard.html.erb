@@ -1,0 +1,23 @@
+<h1>Closest Sitters</h1>
+<table style="border-spacing: 20px 0px;">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Rate</th>
+      <th>Distance</th>
+      <th>Accepts</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @closest_sitters.each do |sitter| %>
+      <tr>
+        <td><%= sitter.name %></td>
+        <td><%= "#{sitter.sitter_profile.rate}$ per hour" %></td>
+        <td><%= "#{number_with_precision(sitter.distance, precision: 2)} KMs away" %></td>
+        <td><%= sitter.sitter_profile.species.map { |specie| specie.name.pluralize }.to_sentence %></td>
+        <td><%= link_to 'Show', person_path(sitter) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

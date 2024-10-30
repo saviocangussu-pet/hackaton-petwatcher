@@ -24,4 +24,8 @@ class Person < ApplicationRecord
     record.select('*', Location.distance_from_query(location.latitude, location.longitude))
           .order(distance: :asc)
   }
+
+  def closest_sitters
+    Person.sitters.closests(location).where.not(id:)
+  end
 end

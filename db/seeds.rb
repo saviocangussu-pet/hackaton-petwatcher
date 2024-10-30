@@ -2,6 +2,13 @@
 
 require 'faker'
 
+Specie.destroy_all
+
+species_names = [Specie::CAT, Specie::DOG]
+Specie.create!(species_names.map { |name| { name: } })
+
+puts 'Seeded Species'
+
 Person.destroy_all
 
 locations = [
@@ -35,17 +42,11 @@ locations.each do |location_attributes|
       sitter_profile_attributes: {
         rate: Faker::Commerce.price(range: 0..20.00),
         description: Faker::Lorem.sentence(word_count: 50),
+        species: Specie.all
       }
     )
   end
 end
-
-Specie.destroy_all
-
-species_names = [Specie::CAT, Specie::DOG]
-Specie.create!(species_names.map { |name| { name: } })
-
-puts 'Seeded Species'
 
 Pet.create!([
               { name: 'Whiskers', specie: Specie.all.sample, owner: Person.all.sample },
@@ -55,7 +56,6 @@ Pet.create!([
             ])
 
 puts 'Seeded Pets'
-
 
 sitter = Person.create!(
   email: 'sitter@petscreening.com',
@@ -68,6 +68,7 @@ sitter = Person.create!(
   sitter_profile_attributes: {
     rate: Faker::Commerce.price(range: 0..20.00),
     description: Faker::Lorem.sentence(word_count: 50),
+    species: Specie.all
   }
 )
 
@@ -78,8 +79,10 @@ owner = Person.create!(
   sitter: false,
   name: Faker::Name.name,
   phone: Faker::PhoneNumber.phone_number,
-  location_attributes: locations.sample,
+  location_attributes: locations.sample
 )
+
+puts 'Seeded People'
 
 Pet.create!(name: 'Fofo', specie: Specie.all.sample, owner:)
 
@@ -87,4 +90,3 @@ puts "Seeded #{Person.count} people"
 
 SitterService.create!(person: sitter, pet: owner.pets.sample, start_date: 5.days.ago.to_date,
                       end_date: 2.days.ago.to_date, total_rate: 10)
-

@@ -7,6 +7,7 @@
         <%= image_tag 'no-image-profile.png', size: "50x50", class: "profile-image" %>
     <% end %>
     </div>
+    <li><%= link_to 'Dashboard', dashboard_path %></li>
     <li><%= link_to 'My Pets', person_pets_path(current_person) %></li>
     <li><%= link_to 'See My Profile', person_path(current_person) %></li>
     <li><%= link_to 'My Sitter Services', person_sitter_services_path(current_person) %></li>

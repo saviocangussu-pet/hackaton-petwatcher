@@ -1,14 +1,23 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  PARAMETER_KEYS = [:name, :phone, :sitter, { location_attributes: %i[latitude longitude] }].freeze
+  SITTER_PARAMETER_KEYS = %i[rate description species_ids].freeze
+
   protected
 
-  def after_sign_in_path_for(resource)
-    person_pets_path(resource)
+  def after_sign_in_path_for(_person)
+    dashboard_path
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up,
-                                      keys: [:name, :phone, :sitter, { location_attributes: %i[latitude longitude] }])
+    keys = PARAMETER_KEYS.dup
+    keys.concat([sitter_profile_attributes: SITTER_PARAMETER_KEYS]) if params.dig(:person, :sitter) == '1'
+
+    devise_parameter_sanitizer.permit(:sign_up, keys:)
+  end
+
+  def configure_person
+    @person = current_person
   end
 end

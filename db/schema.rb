@@ -64,15 +64,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_30_130233) do
     t.index ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true
   end
 
-  create_table "people_species", force: :cascade do |t|
-    t.integer "people_id"
-    t.integer "specie_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["people_id"], name: "index_people_species_on_people_id"
-    t.index ["specie_id"], name: "index_people_species_on_specie_id"
-  end
-
   create_table "pets", force: :cascade do |t|
     t.string "name"
     t.integer "specie_id"
@@ -91,6 +82,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_30_130233) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reviewable_type", "reviewable_id"], name: "index_reviews_on_reviewable"
+  end
+
+  create_table "sitter_profile_species", force: :cascade do |t|
+    t.integer "sitter_profile_id"
+    t.integer "specie_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sitter_profile_id"], name: "index_sitter_profile_species_on_sitter_profile_id"
+    t.index ["specie_id"], name: "index_sitter_profile_species_on_specie_id"
   end
 
   create_table "sitter_profiles", force: :cascade do |t|
