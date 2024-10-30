@@ -41,4 +41,35 @@
   </p>
 <% end %>
 
-<%= link_to 'Send Message', edit_person_path, class: 'btn btn-primary' %>
+<% if @sitter_service.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@sitter_service.errors.count, "error") %> prohibited this schedule from being saved:</h2>
+
+    <ul>
+      <% @sitter_service.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for(@sitter_service, as: :sitter_service, url: sitter_schedule_path(@sitter.id)) do |f| %>
+  <div class="field">
+    <%= f.label 'Schedule date start' %><br/>
+    <%= f.date_field :start_date, min: Date.today %>
+  </div>
+
+  <div class="field">
+    <%= f.label 'Schedule date end' %><br/>
+    <%= f.date_field :end_date, min: Date.tomorrow %>
+  </div>
+
+  <div class="field">
+    <%= f.label 'Your pet' %><br/>
+    <%= f.select :pet_id, @pets_available_for_schedule, selected: @pets_available_for_schedule&.first&.last %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Schedule", id: "submit_button", class: 'btn btn-primary' %>
+  </div>
+<% end %>
