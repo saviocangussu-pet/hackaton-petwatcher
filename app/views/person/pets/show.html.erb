@@ -1,0 +1,14 @@
+<h1><%= @pet.name %></h1>
+
+<p>
+  <strong>Species:</strong>
+  <%= @pet.specie.name if @pet.specie %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @pet.owner.name if @pet.owner %>
+</p>
+
+<%= link_to 'Edit', edit_person_pet_path(current_person, @pet) %> |
+<%= link_to 'Back to My Pets', person_pets_path(current_person) %>

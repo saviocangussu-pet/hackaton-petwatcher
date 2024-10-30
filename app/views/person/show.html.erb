@@ -1,0 +1,23 @@
+<h1>My Profile</h1>
+
+<p>
+  <strong>Name:</strong>
+  <%= @person.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @person.email %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @person.phone %>
+</p>
+
+<p>
+  <strong>Sitter:</strong>
+  <%= @person.sitter ? "Yes" : "No" %>
+</p>
+
+<%= link_to 'Edit Profile', edit_person_path %>
