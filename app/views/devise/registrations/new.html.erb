@@ -1,76 +1,76 @@
-<h2>Sign up</h2>
+<h2 class="title">Sign up</h2>
 
 <script>
-  // This is NOT the right way to do it, I am not a front-end
+    // This is NOT the right way to do it, I am not a front-end
 
-  import("devise/registration").then((registration) => {
-    document.addEventListener("turbo:load", registration.updateLocation);
-    document.addEventListener("turbo:render", registration.updateLocation);
+    import("devise/registration").then((registration) => {
+        document.addEventListener("turbo:load", registration.updateLocation);
+        document.addEventListener("turbo:render", registration.updateLocation);
 
-    document.addEventListener("turbo:load", registration.updateSitterFields);
-    document.addEventListener("turbo:render", registration.updateSitterFields);
+        document.addEventListener("turbo:load", registration.updateSitterFields);
+        document.addEventListener("turbo:render", registration.updateSitterFields);
 
-    document.addEventListener("turbo:load", registration.addUpdateSitterFieldsCallbackToButton);
-    document.addEventListener("turbo:render", registration.addUpdateSitterFieldsCallbackToButton);
-  })
+        document.addEventListener("turbo:load", registration.addUpdateSitterFieldsCallbackToButton);
+        document.addEventListener("turbo:render", registration.addUpdateSitterFieldsCallbackToButton);
+    })
 </script>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'needs-validation', novalidate: true }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true %>
+  <div class="mb-3">
+    <%= f.label :name, class: 'form-label' %>
+    <%= f.text_field :name, autofocus: true, class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autocomplete: "email" %>
+  <div class="mb-3">
+    <%= f.label :email, class: 'form-label' %>
+    <%= f.email_field :email, autocomplete: "email", class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= f.label :phone %><br />
-    <%= f.text_field :phone, autofocus: true %>
+  <div class="mb-3">
+    <%= f.label :phone, class: 'form-label' %>
+    <%= f.text_field :phone, autofocus: true, class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= f.label :password %>
+  <div class="mb-3">
+    <%= f.label :password, class: 'form-label' %>
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %>
+    <%= f.password_field :password, autocomplete: "new-password", class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  <div class="mb-3">
+    <%= f.label :password_confirmation, class: 'form-label' %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= f.label :sitter, "I'm a sitter" %><br />
-    <%= f.check_box :sitter, id: "sitter_checkbox"  %>
+  <div class="mb-3 form-check">
+    <%= f.check_box :sitter, id: "sitter_checkbox", class: 'form-check-input' %>
+    <%= f.label :sitter, "I'm a sitter", class: 'form-check-label' %>
   </div>
 
   <div id="sitter_fields" data-controller="sitter-fields" style="display: none;">
-      <%= f.fields_for :sitter_profile_attributes do |location_fields| %>
-          <div class="field">
-            <%= location_fields.label 'Rate per hour' %><br />
-            <%= location_fields.text_field :rate %>
-          </div>
-          <div class="field">
-            <%= location_fields.label 'Accepted pets' %><br />
-            <%= location_fields.collection_check_boxes(:species_ids, Specie.all.order(name: :asc), :id, :name) %>
-          </div>
-          <div class="field">
-            <%= location_fields.label 'Description' %><br />
-            <%= location_fields.text_area(:description) %>
-          </div>
-      <% end %>
+    <%= f.fields_for :sitter_profile_attributes do |location_fields| %>
+      <div class="mb-3">
+        <%= location_fields.label 'Rate per hour', class: 'form-label' %>
+        <%= location_fields.text_field :rate, class: 'form-control' %>
+      </div>
+      <div class="mb-3">
+        <%= location_fields.label 'Accepted pets', class: 'form-label' %>
+        <%= location_fields.collection_check_boxes(:species_ids, Specie.all.order(name: :asc), :id, :name, { class: 'form-check-input' }) %>
+      </div>
+      <div class="mb-3">
+        <%= location_fields.label 'Description', class: 'form-label' %>
+        <%= location_fields.text_area(:description, class: 'form-control') %>
+      </div>
+    <% end %>
   </div>
 
-  <div class="field">
-    <%= f.label :profile_image %>
-    <%= f.file_field :profile_image %>
+  <div class="mb-3">
+    <%= f.label :profile_image, class: 'form-label' %>
+    <%= f.file_field :profile_image, class: 'form-control' %>
   </div>
 
   <%= f.fields_for :location_attributes do |location_fields| %>
@@ -78,12 +78,12 @@
     <%= location_fields.hidden_field :longitude, id: "location_attributes_longitude" %>
   <% end %>
 
-  <div id="location_message" style="color: red; margin-top: 10px;">
+  <div class="alert alert-danger" role="alert">
     You need to allow your location to complete the signup.
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up", id: "submit_button", disabled: true %>
+    <%= f.submit "Sign up", id: "submit_button", disabled: true, class: 'btn btn-primary' %>
   </div>
 <% end %>
 

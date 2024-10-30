@@ -50,7 +50,7 @@ html, body {
 }
 
 /* Existing CSS remains unchanged */
-.flash .alert-primary, .btn-primary, .btn-primary:hover {
+.flash .alert-primary, .btn-primary, .btn-primary:hover, .btn:disabled{
     background-color: #8320AC;
     border-color: #8320AC;
     color: white;
