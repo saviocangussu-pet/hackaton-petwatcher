@@ -65,7 +65,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_30_130233) do
   end
 
   create_table "pets", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
+    t.string "description", null: false
     t.integer "specie_id"
     t.integer "people_id"
     t.datetime "created_at", null: false

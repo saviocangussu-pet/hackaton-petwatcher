@@ -17,7 +17,7 @@ class Person::SitterServicesController < ApplicationController
     @sitter_service = @person.sitter_services.build(sitter_service_params)
     return unless @sitter_service.save
 
-    redirect_to person_sitter_services_path(@person), notice: 'Sitter Service was successfully created.'
+    redirect_to sitter_path(@person), notice: 'Sitter Service was successfully created.'
   end
 
   def edit; end
@@ -33,7 +33,7 @@ class Person::SitterServicesController < ApplicationController
 
   def destroy
     @sitter_service.destroy
-    redirect_to person_sitter_services_path(@person), notice: 'Sitter Service was successfully deleted.'
+    redirect_to sitter_path(@person), notice: 'Sitter Service was successfully deleted.'
   end
 
   private

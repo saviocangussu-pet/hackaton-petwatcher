@@ -18,7 +18,7 @@ class Person::PetsController < ApplicationController
     @pet = @person.pets.build(pet_params)
 
     if @pet.save
-      redirect_to pet_path(@pet), notice: 'Pet was successfully created.'
+      redirect_to pets_path, notice: 'Pet was successfully created.'
     else
       flash.now[:alert] = 'There was an error creating the pet. Please check the form and try again.'
       render :new
@@ -55,6 +55,6 @@ class Person::PetsController < ApplicationController
   end
 
   def pet_params
-    params.require(:pet).permit(:name, :specie_id, :image)
+    params.require(:pet).permit(:name, :specie_id, :image, :description)
   end
 end

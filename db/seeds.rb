@@ -49,10 +49,10 @@ locations.each do |location_attributes|
 end
 
 Pet.create!([
-              { name: 'Whiskers', specie: Specie.all.sample, owner: Person.all.sample },
-              { name: 'Fido', specie: Specie.all.sample, owner: Person.all.sample },
-              { name: 'Tweety', specie: Specie.all.sample, owner: Person.all.sample },
-              { name: 'Rex', specie: Specie.all.sample, owner: Person.all.sample }
+              { name: 'Whiskers', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50), owner: Person.all.sample },
+              { name: 'Fido', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50), owner: Person.all.sample },
+              { name: 'Tweety', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50), owner: Person.all.sample },
+              { name: 'Rex', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50), owner: Person.all.sample }
             ])
 
 puts 'Seeded Pets'
@@ -84,7 +84,7 @@ owner = Person.create!(
 
 puts 'Seeded People'
 
-Pet.create!(name: 'Fofo', specie: Specie.all.sample, owner:)
+Pet.create!(name: 'Fofo', description: Faker::Lorem.sentence(word_count: 50), specie: Specie.all.sample, owner:)
 
 puts "Seeded #{Person.count} people"
 

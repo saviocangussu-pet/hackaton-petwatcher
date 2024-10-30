@@ -1,29 +1,52 @@
-<div class="container text-center">
-  <h1>My Pets</h1>
-  <%= link_to 'Add a New Pet', new_pet_path, class: 'btn btn-primary mb-3' %>
+<div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <h1 class="title bigger-title">My Pets</h1>
+        <p>Add, edit, or update your pets’ profiles so sitters know exactly who they’ll be caring for.</p>
+      </div>
+      <div class="col-lg-6 text-lg-end">
+        <%= link_to 'Add a New Pet', new_pet_path, class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
 
-  <div class="row">
-    <% @pets.each do |pet| %>
-      <div class="col-md-4 mb-4"> <!-- Adjust the column size based on your preference -->
-        <div class="card">
-          <div class="card-body">
-            <% if pet.image.attached? %>
-              <h2>Image:</h2>
-              <div class="pet-image text-center">
-                <%= image_tag pet.image, style: "width: 10em;" %>
+  <div class="container">
+    <div class="row text-center">
+      <% @pets.each do |pet| %>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 pet-card">
+            <div class="card-body pet-card-body position-relative">
+
+              <!-- Delete Button on Top-Right -->
+              <%= link_to '', pet_path(pet), class: 'fa fa-trash btn btn-outline-light btn-sm position-absolute top-0 end-0 m-2', data: { turbo_method: "delete", confirm: "Are you sure?" } %>
+
+              <!-- Image and Name Row -->
+              <div class="d-flex align-items-center mb-3">
+                <!-- Pet Image -->
+                <% if pet.image.attached? %>
+                  <%= image_tag pet.image, alt: pet.name, class: 'img-fluid rounded-circle me-3 pet-card-img', style: 'width: 60px; height: 60px;' %>
+                <% else %>
+                  <%= image_tag 'no-image-profile.png', alt: 'No image', class: 'img-fluid rounded-circle me-3 pet-card-img', style: 'width: 60px; height: 60px;' %>
+                <% end %>
+
+                <!-- Pet Name -->
+                <h5 class="card-title mb-0"><%= pet.name %></h5>
               </div>
-            <% else %>
-              <%= image_tag 'no-image-profile.png', style: "width: 10em;", class: "profile-image" %>
-            <% end %>
-            <h5 class="card-title"><%= link_to pet.name, pet_path(pet) %></h5>
-            <p class="card-text">Species: <%= pet.specie.name if pet.specie %></p>
-            <div class="d-flex justify-content-between">
-              <%= link_to 'Edit', edit_pet_path(pet), class: 'btn btn-warning btn-sm' %>
-              <%= link_to 'Delete', pet_path(pet), class: 'btn btn-danger btn-sm', data: { turbo_method: "delete" } %>
+
+              <!-- Description -->
+              <p class="card-text"><%= truncate(pet.description, length: 80, omission: '...') %></p>
+
+              <!-- Species Info -->
+              <p class="card-text"><span class="fa fa-paw"></span> <%= pet.specie.name %></p>
+
+              <!-- Edit Button -->
+              <div class="d-grid">
+                <%= link_to 'Edit', edit_pet_path(pet), class: 'btn btn-light btn-sm' %>
+              </div>
+
             </div>
           </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
-</div>

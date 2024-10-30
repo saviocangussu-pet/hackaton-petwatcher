@@ -6,7 +6,7 @@
       <strong>Start Date:</strong> <%= service.start_date %><br>
       <strong>End Date:</strong> <%= service.end_date %><br>
       <strong>Total Rate:</strong> <%= number_to_currency(service.total_rate) %><br>
-      <%= link_to 'Add Review',  person_sitter_services_path(current_person) %>
+      <%= link_to 'Add Review',  sitter_path(service) %>
     </li>
   <% end %>
 </ul>

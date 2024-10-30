@@ -3,4 +3,7 @@ class Pet < ApplicationRecord
   belongs_to :specie
   has_one_attached :image
   has_many :sitter_services
+
+  validates :name, presence: true
+  validates :description, presence: true
 end
