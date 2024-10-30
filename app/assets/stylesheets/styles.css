@@ -1,0 +1,45 @@
+html, body {
+    height: 100%; /* Full height for body */
+    margin: 0; /* Remove default margins */
+}
+
+.container {
+    display: flex; /* Use Flexbox */
+    flex-direction: column; /* Stack elements vertically */
+    min-height: 100vh; /* Full height */
+}
+
+.content {
+    flex: 1; /* This allows the content to grow and fill space */
+}
+
+.footer {
+    background-color: #f8f9fa; /* Example footer background color */
+    padding: 20px; /* Add padding */
+    /* Your existing footer styles can go here */
+}
+
+/* Existing CSS remains unchanged */
+.flash .alert-primary, .btn-primary, .btn-primary:hover {
+    background-color: #8320AC;
+    border-color: #8320AC;
+    color: white;
+}
+
+.font-weight-bold {
+    color: #8320AC;
+    font-weight: bold;
+}
+
+.footer-logo, .footer-image, .footer-contact {
+    margin-bottom: 20px; /* Adjust spacing as needed */
+}
+
+.footer-contact {
+    margin-top: 2em;
+    margin-left: 14em;
+}
+
+.footer-logo img, .footer-image img {
+    max-width: 100%; /* Ensure images are responsive */
+}
