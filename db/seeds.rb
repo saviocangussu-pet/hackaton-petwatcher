@@ -30,6 +30,8 @@ locations.each do |location_attributes|
     )
   end
 
+  owners = Person.where(sitter: false)
+
   2.times do
     person = Person.create!(
       email: Faker::Internet.unique.email,
@@ -46,7 +48,12 @@ locations.each do |location_attributes|
       }
     )
 
-    Review.create!(comment: Faker::Lorem.sentence(word_count: 50), reviewable: person, stars: (3..5).to_a.sample)
+    (1..3).to_a.sample.times do
+      Review.create!(
+        comment: Faker::Lorem.sentence(word_count: 20), reviewable: person.sitter_profile, stars: (3..5).to_a.sample,
+        person: owners.sample
+      )
+    end
   end
 end
 

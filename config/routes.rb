@@ -17,8 +17,8 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'sitter/:id', to: 'sitter#show', as: 'sitter'
-  post 'sitter/:id/schedule', to: 'sitter#schedule', as: 'sitter_schedule'
+  get 'sitter/:id', to: 'sitters#show', as: 'sitter'
+  post 'sitter/:id/schedule', to: 'sitters#schedule', as: 'sitter_schedule'
 
   resource :person, only: %i[edit update], controller: 'person'
 
