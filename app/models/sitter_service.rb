@@ -16,6 +16,6 @@ class SitterService < ApplicationRecord
     total_seconds = (end_date.to_time - start_date.to_time).to_i
     total_hours = (total_seconds / ActiveSupport::Duration::SECONDS_PER_HOUR).ceil
 
-    self.total_rate = total_hours * pet.owner.sitter_profile.rate
+    self.total_rate = total_hours * person.sitter_profile.rate
   end
 end
