@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   resources :person do
     resources :pets, module: :person
+    resources :sitter_services, module: :person
   end
 
   resource :person, only: [:show, :edit, :update]

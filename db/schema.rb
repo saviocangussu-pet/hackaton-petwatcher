@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_30_093911) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_30_130233) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -94,11 +94,26 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_30_093911) do
   end
 
   create_table "sitter_profiles", force: :cascade do |t|
-    t.integer "person_id"
+    t.integer "person_id", null: false
+    t.integer "location_id"
     t.decimal "rate"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_sitter_profiles_on_location_id"
     t.index ["person_id"], name: "index_sitter_profiles_on_person_id"
+  end
+
+  create_table "sitter_services", force: :cascade do |t|
+    t.integer "person_id", null: false
+    t.integer "pet_id", null: false
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.decimal "total_rate", precision: 10, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["person_id"], name: "index_sitter_services_on_person_id"
+    t.index ["pet_id"], name: "index_sitter_services_on_pet_id"
   end
 
   create_table "species", force: :cascade do |t|
@@ -109,4 +124,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_30_093911) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "sitter_profiles", "people"
+  add_foreign_key "sitter_services", "people"
+  add_foreign_key "sitter_services", "pets"
 end

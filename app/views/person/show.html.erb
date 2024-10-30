@@ -23,9 +23,23 @@
   <%= @person.phone %>
 </p>
 
-<p>
-  <strong>Sitter:</strong>
-  <%= @person.sitter ? "Yes" : "No" %>
-</p>
+<% if @person.sitter? %>
+  <p>
+    <strong>Description:</strong>
+    <%= @person.sitter_profile.description %>
+  </p>
+
+  <p>
+    <strong>Price:</strong>
+    <%= @person.sitter_profile.rate %>
+  </p>
+
+  <p>
+    <strong>location:</strong>
+    <%= @person.sitter_profile.location.latitude %>
+    <%= @person.sitter_profile.location.longitude %>
+  </p>
+<% end %>
+
 
 <%= link_to 'Edit Profile', edit_person_path %>

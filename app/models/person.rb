@@ -9,7 +9,10 @@ class Person < ApplicationRecord
   belongs_to :location, dependent: :destroy
 
   has_one :sitter_profile
+
   has_one_attached :profile_image
+
+  has_many :sitter_services, dependent: :destroy
 
   has_many :pets, dependent: :destroy, foreign_key: :people_id
 
