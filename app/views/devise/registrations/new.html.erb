@@ -1,5 +1,34 @@
 <h2>Sign up</h2>
 
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const submitButton = document.getElementById("submit_button");
+    const locationMessage = document.getElementById("location_message");
+    const latitudeField = document.getElementById("location_attributes_latitude");
+    const longitudeField = document.getElementById("location_attributes_longitude");
+
+    const enableSubmit = () => {
+      submitButton.disabled = false;
+      locationMessage.style.display = "none";
+    }
+
+    if (latitudeField.value && longitudeField.value) {
+      enableSubmit();
+    }
+    else {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          latitudeField.value = position.coords.latitude;
+          longitudeField.value = position.coords.longitude;
+
+          enableSubmit();
+        });
+      }
+    }
+  });
+</script>
+
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
@@ -41,8 +70,17 @@
     <%= f.file_field :profile_image %>
   </div>
 
+  <%= f.fields_for :location_attributes do |location_fields| %>
+    <%= location_fields.hidden_field :latitude, id: "location_attributes_latitude" %>
+    <%= location_fields.hidden_field :longitude, id: "location_attributes_longitude" %>
+  <% end %>
+
+  <div id="location_message" style="color: red; margin-top: 10px;">
+    You need to allow your location to complete the signup.
+  </div>
+
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Sign up", id: "submit_button", disabled: true %>
   </div>
 <% end %>
 

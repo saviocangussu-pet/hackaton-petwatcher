@@ -10,18 +10,19 @@ locations = [
   { latitude: 34.0194738, longitude: -119.0355175 } # Los Angeles
 ]
 
-5.times do
-  Person.create!(
-    email: Faker::Internet.unique.email,
-    password: Faker::Internet.password(min_length: 8),
-    owner: true,
-    sitter: false,
-    name: Faker::Name.name,
-    phone: Faker::PhoneNumber.phone_number
-  )
-end
-
 locations.each do |location_attributes|
+  5.times do
+    Person.create!(
+      email: Faker::Internet.unique.email,
+      password: Faker::Internet.password(min_length: 8),
+      owner: true,
+      sitter: false,
+      name: Faker::Name.name,
+      phone: Faker::PhoneNumber.phone_number,
+      location_attributes:
+    )
+  end
+
   2.times do
     Person.create!(
       email: Faker::Internet.unique.email,
@@ -30,9 +31,9 @@ locations.each do |location_attributes|
       sitter: true,
       name: Faker::Name.name,
       phone: Faker::PhoneNumber.phone_number,
+      location_attributes:,
       sitter_profile_attributes: {
-        rate: 25,
-        location_attributes:
+        rate: 25
       }
     )
   end

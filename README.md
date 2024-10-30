@@ -39,7 +39,7 @@ Leverage Fido Tabby to connect pet owners with people can watch pets in their lo
 title: PetWatcher ER
 ---
 erDiagram
-  SITTER_PROFILE ||--|| LOCATION : uses
+  PERSON ||--|| LOCATION : uses
   SITTER_PROFILE }|--o{ SPECIE : accepts
   PERSON |o--|| SITTER_PROFILE : has
   PERSON }|--|| PET : have

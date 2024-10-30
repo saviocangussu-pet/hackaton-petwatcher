@@ -6,6 +6,8 @@ class Location < ApplicationRecord
     mi: 3958.8
   }.freeze
 
+  validates_presence_of :latitude, :longitude
+
   class << self
     def distance_from_query(latitude, longitude, unit: :km)
       haversine = harversine_arel(latitude, longitude)

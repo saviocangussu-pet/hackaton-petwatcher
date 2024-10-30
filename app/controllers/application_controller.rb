@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :phone, :sitter])
+    devise_parameter_sanitizer.permit(:sign_up,
+                                      keys: [:name, :phone, :sitter, { location_attributes: %i[latitude longitude] }])
   end
 end
