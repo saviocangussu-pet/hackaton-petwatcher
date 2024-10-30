@@ -16,7 +16,8 @@ class Person < ApplicationRecord
 
   has_many :pets, dependent: :destroy, foreign_key: :people_id
 
-  accepts_nested_attributes_for :sitter_profile, :location
+  accepts_nested_attributes_for :sitter_profile, update_only: true
+  accepts_nested_attributes_for :location
 
   scope :sitters, -> { where(sitter: true) }
   scope :closests, lambda { |location|

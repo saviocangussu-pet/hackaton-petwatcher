@@ -12,7 +12,7 @@ class PersonController < ApplicationController
   def update
     @person = current_person
     if @person.update(person_params)
-      redirect_to @person, notice: 'Profile was successfully updated.'
+      redirect_to me_person_path, notice: 'Profile was successfully updated.'
     else
       render :edit
     end
@@ -21,6 +21,8 @@ class PersonController < ApplicationController
   private
 
   def person_params
-    params.require(:person).permit(:name, :phone, :sitter, :profile_image, location_attributes: %i[latitude longitude])
+    params.require(:person).permit(:name, :email, :phone, :sitter, :profile_image, 
+      sitter_profile_attributes: [:rate, :description, :person_id, { species_ids: [] }], 
+      location_attributes: %i[latitude longitude])
   end
 end

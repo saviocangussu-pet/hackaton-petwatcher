@@ -23,7 +23,7 @@
   <%= @person.phone %>
 </p>
 
-<% if @person.sitter? %>
+<% if @person.sitter? && @person.sitter_profile %>
   <p>
     <strong>Description:</strong>
     <%= @person.sitter_profile.description %>
@@ -35,11 +35,18 @@
   </p>
 
   <p>
-    <strong>location:</strong>
-    <%= @person.location.latitude %>
-    <%= @person.location.longitude %>
+    <strong>Preferred Species:</strong>
+    <%= @person.sitter_profile.species.map { |s| s.name.capitalize }.join(', ') %>
   </p>
+
+
 <% end %>
+
+<p>
+  <strong>Location:</strong>
+  <%= @person.location.latitude %>,
+  <%= @person.location.longitude %>
+</p>
 
 
 <%= link_to 'Edit Profile', edit_person_path %>

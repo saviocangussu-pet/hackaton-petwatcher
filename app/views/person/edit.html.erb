@@ -38,6 +38,25 @@
     <%= form.file_field :profile_image %>
   </div>
 
+  <% if @person.sitter? %>
+    <%= form.fields_for :sitter_profile_attributes, @person.sitter_profile do |sitter_fields| %>
+      <div class="field">
+        <%= sitter_fields.label :rate %>
+        <%= sitter_fields.text_field :rate %>
+      </div>
+
+      <div class="field">
+        <%= sitter_fields.label :description %>
+        <%= sitter_fields.text_field :description %>
+      </div>
+
+      <div class="field">
+        <%= sitter_fields.label 'Accepted pets' %><br />
+        <%= sitter_fields.collection_check_boxes(:species_ids, Specie.all.order(name: :asc), :id, :name) %>
+      </div>
+    <% end %>
+  <% end %>
+
   <div class="actions">
     <%= form.submit 'Update Profile' %>
   </div>

@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   get 'sitter/:id', to: 'sitter#show', as: 'sitter'
 
-  resource :person, only: %i[show edit update]
+  resource :person, only: %i[edit update], controller: 'person'
 
   get 'dashboard', to: 'home#dashboard'
 
