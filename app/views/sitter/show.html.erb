@@ -1,10 +1,10 @@
-<h1><%= @sitter.name %></h1>
+<h1 class="title"><%= @sitter.name %></h1>
 
-<div class="profile-image">
+<div class="profile-image mb-3">
   <% if @sitter.profile_image.attached? %>
-    <%= image_tag @sitter.profile_image %>
+    <%= image_tag @sitter.profile_image, class: "img-thumbnail" %>
   <% else %>
-    <%= image_tag 'no-image-profile.png', size: "50x50", class: "profile-image" %>
+    <%= image_tag 'no-image-profile.png', size: "50x50", class: "img-thumbnail" %>
   <% end %>
 </div>
 
@@ -31,15 +31,14 @@
 
   <p>
     <strong>Price:</strong>
-    <%= @sitter.sitter_profile.rate %>
+    <%= number_to_currency(@sitter.sitter_profile.rate) %>
   </p>
 
   <p>
-    <strong>location:</strong>
-    <%= @sitter.location.latitude %>
+    <strong>Location:</strong>
+    <%= @sitter.location.latitude %>,
     <%= @sitter.location.longitude %>
   </p>
 <% end %>
 
-
-<%= link_to 'Send ', edit_person_path %>
+<%= link_to 'Send Message', edit_person_path, class: 'btn btn-primary' %>
