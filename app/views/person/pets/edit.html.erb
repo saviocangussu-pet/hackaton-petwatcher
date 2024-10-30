@@ -23,6 +23,19 @@
     <%= form.collection_select :specie_id, Specie.all, :id, :name, selected: @pet.specie_id %>
   </div>
 
+  <% if @pet.image.attached? %>
+    <div class="pet-image">
+      <%= image_tag @pet.image, style: "width: 10em;"%>
+    </div>
+  <% else %>
+    <%= image_tag 'no-image-profile.png', style: "width: 10em;", class: "profile-image" %>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :image %>
+    <%= form.file_field :image %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

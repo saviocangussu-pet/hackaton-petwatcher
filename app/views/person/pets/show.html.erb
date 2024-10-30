@@ -1,5 +1,13 @@
 <h1><%= @pet.name %></h1>
 
+<% if @pet.image.attached? %>
+  <div class="pet-image">
+    <%= image_tag @pet.image, style: "width: 10em;"%>
+  </div>
+<% else %>
+  <%= image_tag 'no-image-profile.png', style: "width: 10em;", class: "profile-image" %>
+<% end %>
+
 <p>
   <strong>Species:</strong>
   <%= @pet.specie.name if @pet.specie %>

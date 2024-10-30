@@ -5,6 +5,14 @@
 <ul>
   <% @pets.each do |pet| %>
     <li>
+      <% if pet.image.attached? %>
+        <h2>Image:</h2>
+        <div class="pet-image">
+          <%= image_tag pet.image, style: "width: 10em;"%>
+        </div>
+      <% else %>
+        <%= image_tag 'no-image-profile.png', style: "width: 10em;", class: "profile-image" %>
+      <% end %>
       <%= link_to pet.name, person_pet_path(current_person, pet) %>
       (<%= pet.specie.name if pet.specie %>)
       <%= link_to 'Edit', edit_person_pet_path(current_person, pet) %> |
