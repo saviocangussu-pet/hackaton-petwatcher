@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   PARAMETER_KEYS = [:name, :phone, :sitter, { location_attributes: %i[latitude longitude] }].freeze
-  SITTER_PARAMETER_KEYS = %i[rate description species_ids].freeze
+  SITTER_PARAMETER_KEYS = [:rate, :description, species_ids: []].freeze
 
   protected
 
