@@ -18,5 +18,5 @@
   <%= @pet.owner.name if @pet.owner %>
 </p>
 
-<%= link_to 'Edit', edit_person_pet_path(current_person, @pet) %> |
-<%= link_to 'Back to My Pets', person_pets_path(current_person) %>
+<%= link_to 'Edit', edit_pet_path(@pet) %>
+<%= link_to 'Back to My Pets', pets_path %>

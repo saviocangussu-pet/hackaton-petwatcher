@@ -1,6 +1,6 @@
 <div class="container text-center">
   <h1>My Pets</h1>
-  <%= link_to 'Add a New Pet', new_person_pet_path(current_person), class: 'btn btn-primary mb-3' %>
+  <%= link_to 'Add a New Pet', new_pet_path, class: 'btn btn-primary mb-3' %>
 
   <div class="row">
     <% @pets.each do |pet| %>
@@ -15,11 +15,11 @@
             <% else %>
               <%= image_tag 'no-image-profile.png', style: "width: 10em;", class: "profile-image" %>
             <% end %>
-            <h5 class="card-title"><%= link_to pet.name, person_pet_path(current_person, pet) %></h5>
+            <h5 class="card-title"><%= link_to pet.name, pet_path(pet) %></h5>
             <p class="card-text">Species: <%= pet.specie.name if pet.specie %></p>
             <div class="d-flex justify-content-between">
-              <%= link_to 'Edit', edit_person_pet_path(current_person, pet), class: 'btn btn-warning btn-sm' %>
-              <%= link_to 'Delete', person_pet_path(current_person, pet), class: 'btn btn-danger btn-sm', data: { turbo_method: "delete" } %>
+              <%= link_to 'Edit', edit_pet_path(pet), class: 'btn btn-warning btn-sm' %>
+              <%= link_to 'Delete', pet_path(pet), class: 'btn btn-danger btn-sm', data: { turbo_method: "delete" } %>
             </div>
           </div>
         </div>

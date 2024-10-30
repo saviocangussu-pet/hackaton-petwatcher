@@ -18,7 +18,7 @@ class Person::PetsController < ApplicationController
     @pet = @person.pets.build(pet_params)
 
     if @pet.save
-      redirect_to person_pet_path(@person, @pet), notice: 'Pet was successfully created.'
+      redirect_to pet_path(@pet), notice: 'Pet was successfully created.'
     else
       flash.now[:alert] = 'There was an error creating the pet. Please check the form and try again.'
       render :new
@@ -31,7 +31,7 @@ class Person::PetsController < ApplicationController
 
   def update
     if @pet.update(pet_params)
-      redirect_to person_pet_path(@person, @pet), notice: 'Pet was successfully updated.'
+      redirect_to pet_path(@pet), notice: 'Pet was successfully updated.'
     else
       @species = Specie.all
       flash.now[:alert] = 'There was an error updating the pet. Please check the form and try again.'
@@ -41,7 +41,7 @@ class Person::PetsController < ApplicationController
 
   def destroy
     @pet.destroy
-    redirect_to person_pets_path(@person), notice: 'Pet was successfully destroyed.'
+    redirect_to pets_path(@person), notice: 'Pet was successfully destroyed.'
   end
 
   private

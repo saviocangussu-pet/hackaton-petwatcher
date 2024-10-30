@@ -15,11 +15,9 @@ class Person::SitterServicesController < ApplicationController
 
   def create
     @sitter_service = @person.sitter_services.build(sitter_service_params)
-    if @sitter_service.save
-      redirect_to person_sitter_services_path(@person), notice: 'Sitter Service was successfully created.'
-    else
-      render :new
-    end
+    return unless @sitter_service.save
+
+    redirect_to person_sitter_services_path(@person), notice: 'Sitter Service was successfully created.'
   end
 
   def edit; end

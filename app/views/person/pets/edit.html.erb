@@ -1,6 +1,6 @@
 <h1>Edit Pet: <%= @pet.name %></h1>
 
-<%= form_with(model: [current_person, @pet], local: true) do |form| %>
+<%= form_with(model: @pet, local: true) do |form| %>
   <% if @pet.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@pet.errors.count, "error") %> prohibited this pet from being saved:</h2>
@@ -41,4 +41,4 @@
   </div>
 <% end %>
 
-<%= link_to 'Back to My Pets', person_pets_path(current_person) %>
+<%= link_to 'Back to My Pets', pets_path(current_person) %>
