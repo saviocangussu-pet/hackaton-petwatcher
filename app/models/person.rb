@@ -8,7 +8,7 @@ class Person < ApplicationRecord
 
   belongs_to :location, dependent: :destroy
 
-  has_one :sitter_profile
+  has_one :sitter_profile, dependent: :destroy
 
   has_one_attached :profile_image
 
@@ -20,6 +20,8 @@ class Person < ApplicationRecord
   accepts_nested_attributes_for :location
 
   scope :sitters, -> { where(sitter: true) }
+  scope :pet_owners, -> { where(owner: true) }
+
   scope :closests, lambda { |location|
     record = joins_values.include?(:location) ? self : joins(:location)
     record.select('*', Location.distance_from_query(location.latitude, location.longitude))

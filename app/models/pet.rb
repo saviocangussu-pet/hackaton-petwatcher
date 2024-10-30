@@ -6,4 +6,15 @@ class Pet < ApplicationRecord
 
   validates :name, presence: true
   validates :description, presence: true
+
+  scope :by_owner_ids, -> (ids) { includes(:owner).where(people_id: ids) }
+
+  scope :closests, lambda { |person|
+    joins(owner: [:location])
+      .select(
+        '*', Location.distance_from_query(person.location.latitude, person.location.longitude)
+      ).where.not(
+        owner: { id: person.id }
+      ).order(distance: :asc)
+  }
 end

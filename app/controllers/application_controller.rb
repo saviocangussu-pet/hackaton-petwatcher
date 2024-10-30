@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def after_sign_in_path_for(_person)
-    dashboard_path
+  def after_sign_in_path_for(person)
+    person.sitter ? pet_sitter_path : dashboard_path
   end
 
   def configure_permitted_parameters

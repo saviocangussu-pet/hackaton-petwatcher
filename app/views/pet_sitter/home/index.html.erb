@@ -1,0 +1,28 @@
+<h1 class="title bigger-title">Hey <%= current_person.name %></h1>
+<p class="title-paragraph">Discover your ideal furry friends to care for nearby!</p>
+
+<h1 class="title">Nearest Pets</h1>
+<div class="container">
+  <div class="row">  <!-- Change "raw" to "row" -->
+    <% @closest_pets.each do |pet| %>
+      <div class="col-lg-2 col-md-4 col-sm-6">  <!-- Adjust column classes -->
+        <a href="<%= pet_path(pet) %>" class="text-decoration-none">
+          <div class="card card-closest-pets">
+            <% if pet.image.attached? %>  <!-- Use pet instead of @person -->
+              <%= image_tag pet.image, alt: pet.name, class: 'card-img-top rounded-circle mx-auto', style: 'width: 100px; height: 100px;' %>
+            <% else %>
+              <%= image_tag 'no-image-profile.png', alt: pet.name, class: 'card-img-top rounded-circle mx-auto', style: 'width: 100px; height: 100px;' %>
+            <% end %>
+            <div class="card-body text-center">
+              <h5 class="card-title"><%= pet.name %></h5>
+              <p class="card-text"><%= "#{number_with_precision(pet.distance, precision: 2)} KMs away" %></p>
+              <div class="star-rating">
+                <p class="card-text"><span class="fa fa-star checked"></span> 4.5</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    <% end %>
+  </div>
+</div>
