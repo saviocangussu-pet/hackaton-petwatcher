@@ -1,14 +1,13 @@
 class Person::PetsController < ApplicationController
   before_action :authenticate_person!
   before_action :set_person
-  before_action :set_pet, only: [:show, :edit, :update, :destroy]
+  before_action :set_pet, only: %i[show edit update destroy]
 
   def index
     @pets = @person.pets.includes(:specie)
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @pet = @person.pets.build
@@ -48,7 +47,7 @@ class Person::PetsController < ApplicationController
   private
 
   def set_person
-    @person = Person.find(params[:person_id])
+    @person = current_person
   end
 
   def set_pet

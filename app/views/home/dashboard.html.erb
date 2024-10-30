@@ -5,7 +5,7 @@
   <div class="row">  <!-- Change "raw" to "row" -->
     <% @closest_sitters.each do |sitter| %>
       <div class="col-lg-2 col-md-4 col-sm-6">  <!-- Adjust column classes -->
-        <a href="<%= person_path(sitter) %>" class="text-decoration-none">
+        <a href="<%= sitter_path(sitter) %>" class="text-decoration-none">
           <div class="card card-closest-sitters">
             <% if sitter.profile_image.attached? %>  <!-- Use sitter instead of @person -->
               <%= image_tag sitter.profile_image, alt: sitter.name, class: 'card-img-top rounded-circle mx-auto', style: 'width: 100px; height: 100px;' %>
@@ -29,7 +29,7 @@
 <h1 class="title">Explore All Sitters</h1>
 <ol class="list-group">
   <% @sitters.each do |sitter| %>
-    <a href="<%= person_path(sitter) %>" class="text-decoration-none">
+    <a href="<%= sitter_path(sitter) %>" class="text-decoration-none">
       <li class="list-group-item d-flex justify-content-between align-items-start">
         <div class="ms-2 me-auto d-flex align-items-center">
           <% if sitter.profile_image.attached? %>

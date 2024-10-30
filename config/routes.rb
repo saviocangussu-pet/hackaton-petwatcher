@@ -6,10 +6,16 @@ Rails.application.routes.draw do
 
   resources :pets
 
-  resources :person do
-    resources :pets, module: :person
-    resources :sitter_services, module: :person
+  resource :person, only: %i[] do
+    get 'me', to: 'person#show', on: :collection
+
+    scope module: :person do
+      resources :pets, as: :pets
+      resources :sitter_services, as: :sitter_services
+    end
   end
+
+  get 'sitter/:id', to: 'sitter#show', as: 'sitter'
 
   resource :person, only: %i[show edit update]
 

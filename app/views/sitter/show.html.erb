@@ -1,0 +1,45 @@
+<h1><%= @sitter.name %></h1>
+
+<div class="profile-image">
+  <% if @sitter.profile_image.attached? %>
+    <%= image_tag @sitter.profile_image %>
+  <% else %>
+    <%= image_tag 'no-image-profile.png', size: "50x50", class: "profile-image" %>
+  <% end %>
+</div>
+
+<p>
+  <strong>Name:</strong>
+  <%= @sitter.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @sitter.email %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @sitter.phone %>
+</p>
+
+<% if @sitter.sitter? %>
+  <p>
+    <strong>Description:</strong>
+    <%= @sitter.sitter_profile.description %>
+  </p>
+
+  <p>
+    <strong>Price:</strong>
+    <%= @sitter.sitter_profile.rate %>
+  </p>
+
+  <p>
+    <strong>location:</strong>
+    <%= @sitter.location.latitude %>
+    <%= @sitter.location.longitude %>
+  </p>
+<% end %>
+
+
+<%= link_to 'Send ', edit_person_path %>

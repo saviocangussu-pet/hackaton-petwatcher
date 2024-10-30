@@ -1,14 +1,13 @@
 class Person::SitterServicesController < ApplicationController
   before_action :authenticate_person!
   before_action :set_person
-  before_action :set_sitter_service, only: [:show, :edit, :update, :destroy]
+  before_action :set_sitter_service, only: %i[show edit update destroy]
 
   def index
     @sitter_services = @person.pets.includes(:sitter_services).map(&:sitter_services).flatten
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @sitter_service = @person.sitter_services.build
@@ -23,12 +22,12 @@ class Person::SitterServicesController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @sitter_service.update(sitter_service_params)
-      redirect_to person_sitter_service_path(@person, @sitter_service), notice: 'Sitter Service was successfully updated.'
+      redirect_to person_sitter_service_path(@person, @sitter_service),
+                  notice: 'Sitter Service was successfully updated.'
     else
       render :edit
     end
@@ -42,7 +41,7 @@ class Person::SitterServicesController < ApplicationController
   private
 
   def set_person
-    @person = Person.find(params[:person_id])
+    @person = current_person
   end
 
   def set_sitter_service
