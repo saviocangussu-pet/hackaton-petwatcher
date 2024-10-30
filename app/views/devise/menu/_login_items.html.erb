@@ -1,9 +1,10 @@
-<% if person_signed_in? %>
-  <li>
-  <%= link_to('Logout', destroy_person_session_path, data: { "turbo-method": :delete }) %>
-  </li>
-<% else %>
-  <li>
-  <%= link_to('Login', new_person_session_path) %>
-  </li>
-<% end %>
+<ul class="hmenu">
+  <% if person_signed_in? %>
+    <li><%= link_to 'My Pets', person_pets_path(current_person) %></li>
+    <li><%= link_to 'See My Profile', person_path(current_person) %></li>
+    <li><%= link_to 'Logout', destroy_person_session_path, data: { turbo_method: "delete" } %></li>
+  <% else %>
+    <li><%= link_to 'Login', new_person_session_path %></li>
+    <li><%= link_to 'Sign Up', new_person_registration_path %></li>
+  <% end %>
+</ul>
