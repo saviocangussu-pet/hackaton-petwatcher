@@ -1,12 +1,14 @@
 <h2>Sign up</h2>
 
-
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
+  // I am not front-end, this is not rught but it works
+  document.addEventListener("turbo:load", function() {
     const submitButton = document.getElementById("submit_button");
     const locationMessage = document.getElementById("location_message");
     const latitudeField = document.getElementById("location_attributes_latitude");
     const longitudeField = document.getElementById("location_attributes_longitude");
+
+    if (!latitudeField || !longitudeField) return;
 
     const enableSubmit = () => {
       submitButton.disabled = false;
