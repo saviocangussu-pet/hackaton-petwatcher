@@ -1,5 +1,12 @@
 <ul class="hmenu">
   <% if person_signed_in? %>
+    <div class="profile-image">
+      <% if @person.profile_image.attached? %>
+        <%= image_tag @person.profile_image %>
+      <% else %>
+        <%= image_tag 'no-image-profile.png', size: "50x50", class: "profile-image" %>
+    <% end %>
+    </div>
     <li><%= link_to 'My Pets', person_pets_path(current_person) %></li>
     <li><%= link_to 'See My Profile', person_path(current_person) %></li>
     <li><%= link_to 'Logout', destroy_person_session_path, data: { turbo_method: "delete" } %></li>

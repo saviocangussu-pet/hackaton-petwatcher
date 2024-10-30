@@ -12,6 +12,8 @@ class Person < ApplicationRecord
 
   accepts_nested_attributes_for :sitter_profile
 
+  has_one_attached :profile_image
+
   scope :sitters, -> { where(sitter: true) }
   scope :closests, lambda { |location|
     record = joins_values.include?(sitter_profile: :location) ? self : joins(sitter_profile: :location)

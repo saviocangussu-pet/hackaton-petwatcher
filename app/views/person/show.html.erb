@@ -1,5 +1,13 @@
 <h1>My Profile</h1>
 
+<div class="profile-image">
+  <% if @person.profile_image.attached? %>
+    <%= image_tag @person.profile_image %>
+  <% else %>
+    <p>No profile image available.</p>
+  <% end %>
+</div>
+
 <p>
   <strong>Name:</strong>
   <%= @person.name %>
