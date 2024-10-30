@@ -3,10 +3,26 @@ html, body {
     margin: 0; /* Remove default margins */
 }
 
+.title {
+    font-family: "Suez One", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.bigger-title{
+    font-size: 64px;
+    font-weight: 83.58;
+}
+
+.container-fluid{
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
 .container {
     display: flex; /* Use Flexbox */
     flex-direction: column; /* Stack elements vertically */
-    min-height: 100vh; /* Full height */
+    margin-bottom: 3em
 }
 
 .content {
@@ -42,4 +58,49 @@ html, body {
 
 .footer-logo img, .footer-image img {
     max-width: 100%; /* Ensure images are responsive */
+}
+
+.star-rating .fa-star {
+    color: lightgray; /* Unchecked stars */
+}
+.star-rating .fa-star.checked {
+    color: gold; /* Checked stars */
+    font-size: 32px;
+}
+
+.star-rating p{
+    font-size:24px;
+}
+.card-closest-sitters{
+    border-radius: 24px;
+    padding: 16px;
+    gap: 8px;
+    background-color: #DFFFFA;
+    height: 100%;
+}
+
+.card-title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28.13px;
+    align-content: center;
+}
+
+.badge{
+    border-radius: 100px;
+    padding: 4px;
+    gap: 4px;
+    width: 82px;
+    height: 40px;
+    background-color: #1A029A !important;
+    align-content: center;
+    margin: .3em;
+}
+
+.list-description{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18.75px;
 }
