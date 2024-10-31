@@ -8,9 +8,15 @@
         <strong>Start Date:</strong> <%= service.start_date.strftime("%B %d, %Y") %><br>
         <strong>End Date:</strong> <%= service.end_date.strftime("%B %d, %Y") %><br>
         <strong>Total Rate:</strong> <%= number_to_currency(service.total_rate) %><br>
-        <%= link_to 'Add Review', sitter_path(service), class: 'btn btn-primary' %>
+
+        <% if service.end_date < Date.today %>
+          <%= link_to 'Add Review', sitter_path(service), class: 'btn btn-primary' %>
+        <% else %>
+          <span class="text-muted">You can’t add a review until the service has ended.</span>
+        <% end %>
       </li>
     <% end %>
+
   </ul>
 </div>
 
