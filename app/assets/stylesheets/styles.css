@@ -216,3 +216,8 @@ html, body {
     display: flex;
     justify-content: flex-end; 
 }
+
+.banner img {
+    width: 100%;
+    height: auto;
+}
