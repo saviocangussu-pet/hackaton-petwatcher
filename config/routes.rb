@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   # resources :pets
 
-  resource :person, only: %i[] do
+  resource :person, only: %i[edit update], controller: 'person' do
     get 'me', to: 'person#show', on: :collection
 
     scope module: :person do
@@ -20,15 +20,14 @@ Rails.application.routes.draw do
   get 'sitter/:id', to: 'sitters#show', as: 'sitter'
   post 'sitter/:id/schedule', to: 'sitters#schedule', as: 'sitter_schedule'
 
-  resource :person, only: %i[edit update], controller: 'person'
-
   get 'dashboard', to: 'home#dashboard'
 
   # Health check route
   get 'up' => 'rails/health#show', as: :rails_health_check
 
   namespace :pet_sitter do
-    get '/',        to: 'home#index'
+    get '/', to: 'home#index'
+    get 'owner/:id', to: 'owners#show', as: 'owner'
     resources :pets, only: %i[show]
   end
 end
