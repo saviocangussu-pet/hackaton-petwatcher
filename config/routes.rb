@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   post 'sitter/:id/schedule', to: 'sitters#schedule', as: 'sitter_schedule'
 
   get 'dashboard', to: 'home#dashboard'
+  get 'home', to: 'home#home'
 
   # Health check route
   get 'up' => 'rails/health#show', as: :rails_health_check
