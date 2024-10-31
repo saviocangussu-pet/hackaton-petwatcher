@@ -5,15 +5,14 @@
         'menu main main right right'
         'menu footer footer footer footer';">
   <div style="grid-area: main;">
-    <h1 class="title"><%= @sitter.name %></h1>
-    <div class="profile-image mb-3">
+    <div class="profile-image mb-3" style="margin-left: 10%">
       <% if @sitter.profile_image.attached? %>
         <%= image_tag @sitter.profile_image, class: "img-thumbnail" %>
       <% else %>
         <%= image_tag 'no-image-profile.png', size: "50x50", class: "img-thumbnail" %>
       <% end %>
     </div>
-
+    <h1 class="title"><%= @sitter.name %></h1>
     <p>
       <strong>Name:</strong>
       <%= @sitter.name %>
