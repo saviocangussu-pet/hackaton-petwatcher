@@ -11,62 +11,60 @@ puts 'Seeded Species'
 
 Person.destroy_all
 
+pets = [
+  { name: 'Whiskers', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50) },
+  { name: 'Fido', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50) },
+  { name: 'Tweety', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50) },
+  { name: 'Rex', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50) }
+]
 locations = [
-  { latitude: 49.2578182, longitude: -123.2063038 }, # Vancouver
-  { latitude: 40.6976312, longitude: -74.1444868 }, # New York
-  { latitude: 34.0194738, longitude: -119.0355175 } # Los Angeles
+  { latitude: 40.7128, longitude: -74.0060 }, # New York City
+  { latitude: 40.7306, longitude: -73.9866 }, # Greenwich Village
+  { latitude: 40.7580, longitude: -73.9855 }, # Times Square
+  { latitude: 40.7851, longitude: -73.9683 }, # Central Park
+  { latitude: 40.7061, longitude: -74.0086 },  # Wall Street
+  { latitude: 34.0522, longitude: -118.2437 }, # Los Angeles
+  { latitude: 34.0522, longitude: -118.4426 }, # UCLA
+  { latitude: 34.1015, longitude: -118.3269 }, # Hollywood
+  { latitude: 34.0739, longitude: -118.2402 }, # Echo Park
+  { latitude: 34.1478, longitude: -118.1445 }  # Pasadena
 ]
 
 locations.each do |location_attributes|
-  5.times do
-    Person.create!(
-      email: Faker::Internet.unique.email,
-      password: Faker::Internet.password(min_length: 8),
-      owner: true,
-      sitter: false,
-      name: Faker::Name.name,
-      phone: Faker::PhoneNumber.phone_number,
-      location_attributes:
-    )
-  end
+  owner = Person.create!(
+    email: Faker::Internet.unique.email,
+    password: Faker::Internet.password(min_length: 8),
+    owner: true,
+    sitter: false,
+    name: Faker::Name.name,
+    phone: Faker::PhoneNumber.phone_number,
+    location_attributes:,
+    pets_attributes: pets.sample(2)
+  )
 
-  owners = Person.where(sitter: false)
+  person = Person.create!(
+    email: Faker::Internet.unique.email,
+    password: Faker::Internet.password(min_length: 8),
+    owner: true,
+    sitter: true,
+    name: Faker::Name.name,
+    phone: Faker::PhoneNumber.phone_number,
+    location_attributes:,
+    pets_attributes: pets.sample(2),
+    sitter_profile_attributes: {
+      rate: Faker::Commerce.price(range: 0..20.00),
+      description: Faker::Lorem.sentence(word_count: 50),
+      species: Specie.all
+    }
+  )
 
   2.times do
-    person = Person.create!(
-      email: Faker::Internet.unique.email,
-      password: Faker::Internet.password(min_length: 8),
-      owner: true,
-      sitter: true,
-      name: Faker::Name.name,
-      phone: Faker::PhoneNumber.phone_number,
-      location_attributes:,
-      sitter_profile_attributes: {
-        rate: Faker::Commerce.price(range: 0..20.00),
-        description: Faker::Lorem.sentence(word_count: 50),
-        species: Specie.all
-      }
+    Review.create!(
+      comment: Faker::Lorem.sentence(word_count: 20), reviewable: person.sitter_profile, stars: (3..5).to_a.sample,
+      person: owner
     )
-
-    (1..3).to_a.sample.times do
-      Review.create!(
-        comment: Faker::Lorem.sentence(word_count: 20), reviewable: person.sitter_profile, stars: (3..5).to_a.sample,
-        person: owners.sample
-      )
-    end
   end
 end
-
-Pet.create!([
-              { name: 'Whiskers', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50),
-                owner: Person.all.sample },
-              { name: 'Fido', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50),
-                owner: Person.all.sample },
-              { name: 'Tweety', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50),
-                owner: Person.all.sample },
-              { name: 'Rex', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50),
-                owner: Person.all.sample }
-            ])
 
 puts 'Seeded Pets'
 
@@ -77,7 +75,8 @@ sitter = Person.create!(
   sitter: true,
   name: Faker::Name.name,
   phone: Faker::PhoneNumber.phone_number,
-  location_attributes: locations.sample,
+  pets_attributes: pets.sample(2),
+  location_attributes: { latitude: 40.7138, longitude: -74.0050 },
   sitter_profile_attributes: {
     rate: Faker::Commerce.price(range: 1..20.00),
     description: Faker::Lorem.sentence(word_count: 50),
@@ -92,7 +91,8 @@ owner = Person.create!(
   sitter: false,
   name: Faker::Name.name,
   phone: Faker::PhoneNumber.phone_number,
-  location_attributes: locations.sample
+  pets_attributes: pets.sample(2),
+  location_attributes: { latitude: 40.7158, longitude: -74.0055 }
 )
 
 Pet.create!(name: 'Fofo', description: Faker::Lorem.sentence(word_count: 50), specie: Specie.all.sample, owner:)

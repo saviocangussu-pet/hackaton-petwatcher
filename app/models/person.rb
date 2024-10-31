@@ -14,10 +14,11 @@ class Person < ApplicationRecord
   has_one_attached :profile_image
 
   has_many :sitter_services, dependent: :destroy
-  has_many :pets, dependent: :destroy, foreign_key: :people_id
+  has_many :pets, dependent: :destroy, inverse_of: :owner
 
   accepts_nested_attributes_for :sitter_profile, update_only: true
   accepts_nested_attributes_for :location
+  accepts_nested_attributes_for :pets
 
   scope :sitters, -> { where(sitter: true) }
   scope :owners, -> { where(sitter: false) }

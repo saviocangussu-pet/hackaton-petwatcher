@@ -81,31 +81,35 @@
 
   <div style="grid-area: footer;">
     <h1 class="mt-xl-5 mb-xl-3 title">Customer Feedback</h1>
-    <% @reviews.each do |review| %>
-      <div class="col-lg-4 col-md-4 col-sm-6">  <!-- Adjust column classes -->
-        <a href="<%= pet_path(review) %>" class="text-decoration-none">
-          <div class="card" style="display: grid; grid-template-areas: 'left-header header right-header' 'main main main' 'footer footer footer';">
-            <div class="mx-lg-4 mt-lg-3" style="grid-area: left-header;">
-            <% if review.person.profile_image.attached? %>  <!-- Use pet instead of @person -->
-              <%= image_tag review.person.profile_image, alt: review.person.name, class: 'card-img-top rounded-circle mx-auto', style: 'width: 75px; height: 75px;' %>
-            <% else %>
-              <%= image_tag 'no-image-profile.png', alt: review.person.name, class: 'card-img-top rounded-circle mx-auto', style: 'width: 75px; height: 75px;' %>
-            <% end %>
-            </div>
-            <div style="grid-area: right-header;">
-              <div class="star-rating m-lg-3 mt-lg-3" style="display: flex;  justify-content: center;">
-                <p class="card-text"><span class="fa fa-star checked"></span><%= review.stars %></p>
+    <div class="container">
+      <div class="row">
+        <% @reviews.each do |review| %>
+          <div class="col-lg-4 col-md-4 col-sm-6">  <!-- Adjust column classes -->
+            <a href="<%= pet_path(review) %>" class="text-decoration-none">
+              <div class="card" style="display: grid; grid-template-areas: 'left-header header right-header' 'main main main' 'footer footer footer';">
+                <div class="mx-lg-4 mt-lg-3" style="grid-area: left-header;">
+                <% if review.person.profile_image.attached? %>  <!-- Use pet instead of @person -->
+                  <%= image_tag review.person.profile_image, alt: review.person.name, class: 'card-img-top rounded-circle mx-auto', style: 'width: 75px; height: 75px;' %>
+                <% else %>
+                  <%= image_tag 'no-image-profile.png', alt: review.person.name, class: 'card-img-top rounded-circle mx-auto', style: 'width: 75px; height: 75px;' %>
+                <% end %>
+                </div>
+                <div style="grid-area: right-header;">
+                  <div class="star-rating m-lg-3 mt-lg-3" style="display: flex;  justify-content: center;">
+                    <p class="card-text"><span class="fa fa-star checked"></span><%= review.stars %></p>
+                  </div>
+                </div>
+                <div class="card-body pb-lg-1" style="grid-area: main;">
+                  <h5 class="card-title"><%= review.person.name %></h5>
+                </div>
+                <div class="card-body pt-lg-1" style="grid-area: footer;">
+                  <p><%= review.comment %></h5>
+                </div>
               </div>
-            </div>
-            <div class="card-body pb-lg-1" style="grid-area: main;">
-              <h5 class="card-title"><%= review.person.name %></h5>
-            </div>
-            <div class="card-body pt-lg-1" style="grid-area: footer;">
-              <p><%= review.comment %></h5>
-            </div>
+            </a>
           </div>
-        </a>
+        <% end %>
       </div>
-    <% end %>
+    </div>
   </div>
 </div>
