@@ -1,14 +1,14 @@
 <h1 class="title"><%= @pet.name %></h1>
 
-<div class="pet-image mb-3">
-  <% if @pet.image.attached? %>
-    <%= image_tag @pet.image, style: "width: 10em;" %>
+<div class="my-lg-3">
+  <% if @pet.image.attached? %>  <!-- Use pet instead of @person -->
+    <%= image_tag @pet.image, alt: @pet.name, class: 'card-img-top rounded-circle mx-auto', style: 'width: 100px; height: 100px;' %>
   <% else %>
-    <%= image_tag 'no-image-profile.png', style: "width: 10em;", class: "profile-image" %>
+    <%= image_tag 'no-image-profile.png', alt: @pet.name, class: 'card-img-top rounded-circle mx-auto', style: 'width: 100px; height: 100px;' %>
   <% end %>
 </div>
 
-<div class="mb-3">
+<div class="my-lg-3">
   <p>
     <strong>Species:</strong>
     <%= @pet.specie.name if @pet.specie %>
