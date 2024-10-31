@@ -15,7 +15,7 @@
                 <div class='row'>
                   <div class='col-sm-4'>
                     <% if sitter.profile_image.attached? %> 
-                      <%= image_tag pesittert.profile_image, alt: sitter.name, class: 'card-img-top rounded-circle mx-auto', style: 'width: 100px; height: 100px;' %>
+                      <%= image_tag sitter.profile_image, alt: sitter.name, class: 'card-img-top rounded-circle mx-auto', style: 'width: 100px; height: 100px;' %>
                     <% else %>
                       <%= image_tag 'no-image-profile.png', alt: sitter.name, class: 'card-img-top rounded-circle mx-auto', style: 'width: 100px; height: 100px;' %>
                     <% end %>

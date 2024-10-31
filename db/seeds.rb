@@ -1,6 +1,7 @@
 # db/seeds.rb
 
 require 'faker'
+require 'fileutils'
 
 Specie.destroy_all
 
@@ -11,6 +12,7 @@ puts 'Seeded Species'
 
 Person.destroy_all
 
+person_image_paths = Dir['db/seeds/person/*'].each.cycle
 pets = [
   { name: 'Whiskers', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50) },
   { name: 'Fido', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50) },
@@ -41,6 +43,7 @@ locations.each do |location_attributes|
     location_attributes:,
     pets_attributes: pets.sample(2)
   )
+  owner.profile_image.attach(io: File.open(person_image_paths.next), filename: 'image')
 
   person = Person.create!(
     email: Faker::Internet.unique.email,
@@ -57,6 +60,7 @@ locations.each do |location_attributes|
       species: Specie.all
     }
   )
+  person.profile_image.attach(io: File.open(person_image_paths.next), filename: 'image')
 
   2.times do
     Review.create!(
@@ -83,6 +87,7 @@ sitter = Person.create!(
     species: Specie.all
   }
 )
+sitter.profile_image.attach(io: File.open(person_image_paths.next), filename: 'image')
 
 owner = Person.create!(
   email: 'owner@petscreening.com',
@@ -94,6 +99,7 @@ owner = Person.create!(
   pets_attributes: pets.sample(2),
   location_attributes: { latitude: 40.7158, longitude: -74.0055 }
 )
+owner.profile_image.attach(io: File.open(person_image_paths.next), filename: 'image')
 
 Pet.create!(name: 'Fofo', description: Faker::Lorem.sentence(word_count: 50), specie: Specie.all.sample, owner:)
 
