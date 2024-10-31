@@ -1,0 +1,30 @@
+<h1 class="title"><%= @pet.name %></h1>
+
+<div class="pet-image mb-3">
+  <% if @pet.image.attached? %>
+    <%= image_tag @pet.image, style: "width: 10em;" %>
+  <% else %>
+    <%= image_tag 'no-image-profile.png', style: "width: 10em;", class: "profile-image" %>
+  <% end %>
+</div>
+
+<div class="mb-3">
+  <p>
+    <strong>Species:</strong>
+    <%= @pet.specie.name if @pet.specie %>
+  </p>
+</div>
+
+<div class="mb-3">
+  <p>
+    <strong>Description:</strong>
+    <%= @pet.description if @pet.description %>
+  </p>
+</div>
+
+<div class="mb-3">
+  <p>
+    <strong>Owner:</strong>
+    <%= @pet.owner.name if @pet.owner %>
+  </p>
+</div>
