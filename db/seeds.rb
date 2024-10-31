@@ -13,12 +13,9 @@ puts 'Seeded Species'
 Person.destroy_all
 
 person_image_paths = Dir['db/seeds/person/*'].each.cycle
-pets = [
-  { name: 'Whiskers', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50) },
-  { name: 'Fido', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50) },
-  { name: 'Tweety', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50) },
-  { name: 'Rex', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50) }
-]
+dogs_image_paths = Dir['db/seeds/pets/dogs/*'].each.cycle
+cats_image_paths = Dir['db/seeds/pets/cats/*'].each.cycle
+
 locations = [
   { latitude: 40.7128, longitude: -74.0060 }, # New York City
   { latitude: 40.7306, longitude: -73.9866 }, # Greenwich Village
@@ -41,9 +38,23 @@ locations.each do |location_attributes|
     name: Faker::Name.name,
     phone: Faker::PhoneNumber.phone_number,
     location_attributes:,
-    pets_attributes: pets.sample(2)
+    profile_image: {
+      io: File.open(person_image_paths.next),
+      filename: 'image'
+    },
+    pets_attributes: [
+      { name: Faker::Creature::Dog.name, specie: Specie.find_by_name('dog'),
+        description: Faker::Lorem.sentence(word_count: 50), image: {
+          io: File.open(dogs_image_paths.next),
+          filename: 'image'
+        } },
+      { name: Faker::Creature::Cat.name, specie: Specie.find_by_name('cat'),
+        description: Faker::Lorem.sentence(word_count: 50), image: {
+          io: File.open(cats_image_paths.next),
+          filename: 'image'
+        } }
+    ]
   )
-  owner.profile_image.attach(io: File.open(person_image_paths.next), filename: 'image')
 
   person = Person.create!(
     email: Faker::Internet.unique.email,
@@ -53,14 +64,28 @@ locations.each do |location_attributes|
     name: Faker::Name.name,
     phone: Faker::PhoneNumber.phone_number,
     location_attributes:,
-    pets_attributes: pets.sample(2),
+    pets_attributes: [
+      { name: Faker::Creature::Dog.name, specie: Specie.find_by_name('dog'),
+        description: Faker::Lorem.sentence(word_count: 50), image: {
+          io: File.open(dogs_image_paths.next),
+          filename: 'image'
+        } },
+      { name: Faker::Creature::Cat.name, specie: Specie.find_by_name('cat'),
+        description: Faker::Lorem.sentence(word_count: 50), image: {
+          io: File.open(cats_image_paths.next),
+          filename: 'image'
+        } }
+    ],
+    profile_image: {
+      io: File.open(person_image_paths.next),
+      filename: 'image'
+    },
     sitter_profile_attributes: {
       rate: Faker::Commerce.price(range: 0..20.00),
       description: Faker::Lorem.sentence(word_count: 50),
       species: Specie.all
     }
   )
-  person.profile_image.attach(io: File.open(person_image_paths.next), filename: 'image')
 
   2.times do
     Review.create!(
@@ -79,15 +104,29 @@ sitter = Person.create!(
   sitter: true,
   name: Faker::Name.name,
   phone: Faker::PhoneNumber.phone_number,
-  pets_attributes: pets.sample(2),
+  pets_attributes: [
+    { name: Faker::Creature::Dog.name, specie: Specie.find_by_name('dog'),
+      description: Faker::Lorem.sentence(word_count: 50), image: {
+        io: File.open(dogs_image_paths.next),
+        filename: 'image'
+      } },
+    { name: Faker::Creature::Cat.name, specie: Specie.find_by_name('cat'),
+      description: Faker::Lorem.sentence(word_count: 50), image: {
+        io: File.open(cats_image_paths.next),
+        filename: 'image'
+      } }
+  ],
   location_attributes: { latitude: 40.7138, longitude: -74.0050 },
+  profile_image: {
+    io: File.open(person_image_paths.next),
+    filename: 'image'
+  },
   sitter_profile_attributes: {
     rate: Faker::Commerce.price(range: 1..20.00),
     description: Faker::Lorem.sentence(word_count: 50),
     species: Specie.all
   }
 )
-sitter.profile_image.attach(io: File.open(person_image_paths.next), filename: 'image')
 
 owner = Person.create!(
   email: 'owner@petscreening.com',
@@ -96,12 +135,24 @@ owner = Person.create!(
   sitter: false,
   name: Faker::Name.name,
   phone: Faker::PhoneNumber.phone_number,
-  pets_attributes: pets.sample(2),
-  location_attributes: { latitude: 40.7158, longitude: -74.0055 }
+  profile_image: {
+    io: File.open(person_image_paths.next),
+    filename: 'image'
+  },
+  location_attributes: { latitude: 40.7158, longitude: -74.0055 },
+  pets_attributes: [
+    { name: Faker::Creature::Dog.name, specie: Specie.find_by_name('dog'),
+      description: Faker::Lorem.sentence(word_count: 50), image: {
+        io: File.open(dogs_image_paths.next),
+        filename: 'image'
+      } },
+    { name: Faker::Creature::Cat.name, specie: Specie.find_by_name('cat'),
+      description: Faker::Lorem.sentence(word_count: 50), image: {
+        io: File.open(cats_image_paths.next),
+        filename: 'image'
+      } }
+  ]
 )
-owner.profile_image.attach(io: File.open(person_image_paths.next), filename: 'image')
-
-Pet.create!(name: 'Fofo', description: Faker::Lorem.sentence(word_count: 50), specie: Specie.all.sample, owner:)
 
 puts "Seeded #{Person.count} people"
 
