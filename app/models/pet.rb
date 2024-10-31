@@ -7,7 +7,7 @@ class Pet < ApplicationRecord
   validates :name, presence: true
   validates :description, presence: true
 
-  scope :by_owner_ids, -> (ids) { includes(:owner).where(people_id: ids) }
+  scope :by_owner_ids, ->(ids) { includes(:owner).where(people_id: ids) }
 
   scope :closests, lambda { |person|
     pet_columns = %w[pets.id pets.name pets.description pets.specie_id pets.people_id pets.created_at pets.updated_at]
@@ -18,5 +18,9 @@ class Pet < ApplicationRecord
       ).where.not(
         owner: { id: person.id }
       ).order(distance: :asc)
+  }
+
+  scope :for_species, lambda { |species|
+    where(specie_id: species)
   }
 end

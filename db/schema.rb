@@ -78,10 +78,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_30_130233) do
   create_table "reviews", force: :cascade do |t|
     t.string "reviewable_type"
     t.integer "reviewable_id"
+    t.integer "person_id"
     t.integer "stars"
     t.string "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["person_id"], name: "index_reviews_on_person_id"
     t.index ["reviewable_type", "reviewable_id"], name: "index_reviews_on_reviewable"
   end
 

@@ -30,8 +30,10 @@ locations.each do |location_attributes|
     )
   end
 
+  owners = Person.where(sitter: false)
+
   2.times do
-    Person.create!(
+    person = Person.create!(
       email: Faker::Internet.unique.email,
       password: Faker::Internet.password(min_length: 8),
       owner: true,
@@ -45,14 +47,25 @@ locations.each do |location_attributes|
         species: Specie.all
       }
     )
+
+    (1..3).to_a.sample.times do
+      Review.create!(
+        comment: Faker::Lorem.sentence(word_count: 20), reviewable: person.sitter_profile, stars: (3..5).to_a.sample,
+        person: owners.sample
+      )
+    end
   end
 end
 
 Pet.create!([
-              { name: 'Whiskers', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50), owner: Person.all.sample },
-              { name: 'Fido', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50), owner: Person.all.sample },
-              { name: 'Tweety', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50), owner: Person.all.sample },
-              { name: 'Rex', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50), owner: Person.all.sample }
+              { name: 'Whiskers', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50),
+                owner: Person.all.sample },
+              { name: 'Fido', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50),
+                owner: Person.all.sample },
+              { name: 'Tweety', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50),
+                owner: Person.all.sample },
+              { name: 'Rex', specie: Specie.all.sample, description: Faker::Lorem.sentence(word_count: 50),
+                owner: Person.all.sample }
             ])
 
 puts 'Seeded Pets'
@@ -81,8 +94,6 @@ owner = Person.create!(
   phone: Faker::PhoneNumber.phone_number,
   location_attributes: locations.sample
 )
-
-puts 'Seeded People'
 
 Pet.create!(name: 'Fofo', description: Faker::Lorem.sentence(word_count: 50), specie: Specie.all.sample, owner:)
 

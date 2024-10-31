@@ -4,14 +4,18 @@
     // This is NOT the right way to do it, I am not a front-end
 
     import("devise/registration").then((registration) => {
-        document.addEventListener("turbo:load", registration.updateLocation);
-        document.addEventListener("turbo:render", registration.updateLocation);
+      document.addEventListener("turbo:load", registration.updateLocation);
+      document.addEventListener("turbo:render", registration.updateLocation);
 
-        document.addEventListener("turbo:load", registration.updateSitterFields);
-        document.addEventListener("turbo:render", registration.updateSitterFields);
+      document.addEventListener("turbo:load", registration.updateSitterFields);
+      document.addEventListener("turbo:render", registration.updateSitterFields);
 
-        document.addEventListener("turbo:load", registration.addUpdateSitterFieldsCallbackToButton);
-        document.addEventListener("turbo:render", registration.addUpdateSitterFieldsCallbackToButton);
+      document.addEventListener("turbo:load", registration.addUpdateSitterFieldsCallbackToButton);
+      document.addEventListener("turbo:render", registration.addUpdateSitterFieldsCallbackToButton);
+
+      registration.updateLocation();
+      registration.updateSitterFields();
+      registration.addUpdateSitterFieldsCallbackToButton();
     })
 </script>
 
@@ -78,7 +82,7 @@
     <%= location_fields.hidden_field :longitude, id: "location_attributes_longitude" %>
   <% end %>
 
-  <div class="alert alert-danger" role="alert">
+  <div id="location_message" class="alert alert-danger" role="alert">
     You need to allow your location to complete the signup.
   </div>
 

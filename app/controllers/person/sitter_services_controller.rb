@@ -5,6 +5,9 @@ class Person::SitterServicesController < ApplicationController
 
   def index
     @sitter_services = @person.pets.includes(:sitter_services).map(&:sitter_services).flatten
+    return unless @person.sitter
+
+    @customer_services = @person.sitter_services.includes(pet: :owner)
   end
 
   def show; end
@@ -25,7 +28,7 @@ class Person::SitterServicesController < ApplicationController
   def update
     if @sitter_service.update(sitter_service_params)
       redirect_to person_sitter_service_path(@person, @sitter_service),
-                  notice: 'Sitter Service was successfully updated.'
+                  notice: 'Sitter service was successfully scheluded.'
     else
       render :edit
     end
