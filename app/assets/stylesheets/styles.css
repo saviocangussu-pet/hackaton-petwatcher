@@ -205,3 +205,13 @@ html, body {
     padding-top: 30px;
     padding-bottom: 30px;
 }
+
+.verticaly-centered {
+    display: flex;
+    align-items: center !important;
+}
+
+.flex-end {
+    display: flex;
+    justify-content: flex-end; 
+}
