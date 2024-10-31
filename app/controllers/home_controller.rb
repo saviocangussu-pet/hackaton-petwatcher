@@ -5,8 +5,7 @@ class HomeController < ApplicationController
   def home
     @closest_sitters = @person.closest_sitters
                               .includes(:profile_image_attachment, sitter_profile: :species)
-                              .sort_by { |sitter| [sitter.distance, sitter.id] }
-                              .last(6)
+                              .first(6)
     @sitters = @person.closest_sitters.includes(:profile_image_attachment, sitter_profile: :species)
   end
 
