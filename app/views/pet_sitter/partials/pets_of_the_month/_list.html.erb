@@ -1,0 +1,39 @@
+<h1 class="title">Pets of the Month</h1>
+<div class="container">
+  <div class="row">  <!-- Change "raw" to "row" -->
+    <% @closest_pets.first(3).each do |pet| %>
+      <div class="col-sm-4">
+        <a href="<%= pet_path(pet) %>" class="text-decoration-none">
+          <div class='card month-card'>
+            <div class='card-header month-card-header'>
+              <div class='row'>
+                <div class='col-sm-4'>
+                  <% if pet.image.attached? %>  <!-- Use pet instead of @person -->
+                    <%= image_tag pet.image, alt: pet.name, class: 'card-img-top rounded-circle mx-auto', style: 'width: 100px; height: 100px;' %>
+                  <% else %>
+                    <%= image_tag 'no-image-profile.png', alt: pet.name, class: 'card-img-top rounded-circle mx-auto', style: 'width: 100px; height: 100px;' %>
+                  <% end %>
+                </div>
+                <div class='col-sm-6 card-title-wrapper'>
+                  <h5 class="card-title"><%= pet.name %></h5>
+                  <p class="card-text"><%= "#{number_with_precision(pet.distance, precision: 2)} KMs away" %></p>
+                </div>
+                <div class='col-sm-2'>
+                  <div class="star-rating">
+                    <p class="card-text"><span class="fa fa-star checked"></span> 4.5</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class='card-body text-center month-card-body'>
+              <p class='card-text' > <%= pet.description %> </p>
+            </div>
+            <div class='card-footer month-card-footer '>
+              <span class="badge badge-pill badge-primary"><%= pet.specie.name %></span>
+            </div>
+          </div>
+        </a>
+      </div>
+    <% end %>
+  </div>
+</div>

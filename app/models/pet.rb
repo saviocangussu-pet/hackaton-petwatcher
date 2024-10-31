@@ -10,9 +10,11 @@ class Pet < ApplicationRecord
   scope :by_owner_ids, -> (ids) { includes(:owner).where(people_id: ids) }
 
   scope :closests, lambda { |person|
+    pet_columns = %w[pets.id pets.name pets.description pets.specie_id pets.people_id pets.created_at pets.updated_at]
+
     joins(owner: [:location])
       .select(
-        '*', Location.distance_from_query(person.location.latitude, person.location.longitude)
+        pet_columns.join(', '), Location.distance_from_query(person.location.latitude, person.location.longitude)
       ).where.not(
         owner: { id: person.id }
       ).order(distance: :asc)

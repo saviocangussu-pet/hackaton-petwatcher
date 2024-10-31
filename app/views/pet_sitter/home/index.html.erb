@@ -1,10 +1,12 @@
 <h1 class="title bigger-title">Hey <%= current_person.name %></h1>
 <p class="title-paragraph">Discover your ideal furry friends to care for nearby!</p>
 
+<%= render 'pet_sitter/partials/pets_of_the_month/list' %>
+
 <h1 class="title">Nearest Pets</h1>
 <div class="container">
   <div class="row">  <!-- Change "raw" to "row" -->
-    <% @closest_pets.each do |pet| %>
+    <% @closest_pets.first(6).each do |pet| %>
       <div class="col-lg-2 col-md-4 col-sm-6">  <!-- Adjust column classes -->
         <a href="<%= pet_path(pet) %>" class="text-decoration-none">
           <div class="card card-closest-pets">
@@ -26,3 +28,23 @@
     <% end %>
   </div>
 </div>
+
+<h1 class="title">Explore All Pets</h1>
+<ol class="list-group">
+  <% @closest_pets.each do |pet| %>
+    <a href="<%= pet_path(pet) %>" class="text-decoration-none">
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto d-flex align-items-center">
+          <% if pet.image.attached? %>
+            <%= image_tag pet.image, alt: pet.name, class: 'img-thumbnail me-2', style: 'width: 50px; height: 50px;' %>
+          <% else %>
+            <%= image_tag 'no-image-profile.png', alt: pet.name, class: 'img-thumbnail me-2', style: 'width: 50px; height: 50px;' %>
+          <% end %>
+            <div class="fw-bold m-2"><%= pet.name %></div>
+            <div class="star-rating"><p class="card-text"><span class="fa fa-star checked"></span> 4.5</p></div>
+            <p class="m-2 list-description"><%= truncate(pet.description, length: 80, omission: '...') %></p>
+        </div>
+      </li>
+    </a>
+  <% end %>
+</ol>

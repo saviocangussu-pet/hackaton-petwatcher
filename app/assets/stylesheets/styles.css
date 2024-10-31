@@ -33,7 +33,6 @@ html, body {
 .container {
     display: flex; /* Use Flexbox */
     flex-direction: column; /* Stack elements vertically */
-    margin-bottom: 3em
 }
 .nav-item{
     margin-left:4em
@@ -47,6 +46,13 @@ html, body {
     background-color: #f8f9fa; /* Example footer background color */
     padding: 20px; /* Add padding */
     /* Your existing footer styles can go here */
+
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    padding: 10px;
+    z-index: 100;
+    
 }
 
 /* Existing CSS remains unchanged */
@@ -138,4 +144,29 @@ html, body {
     font-weight: 400;
     font-size: 16px;
     line-height: 18.75px;
+}
+
+.month-card {
+    background-color: #3620AB;
+    color: white;
+    border-radius: 20px;
+}
+
+.month-card-header {
+    padding: 20px;
+    border-bottom: none;
+}
+
+.month-card-body {
+    padding: 10px;
+}
+
+.month-card-footer {
+    border-top: none;
+    display: flex;
+    justify-content: flex-end; 
+}
+
+.card-title-wrapper {
+    padding-top:30px;
 }
