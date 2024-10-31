@@ -1,115 +1,104 @@
-<div style="
-    display: grid;
-    grid-template-areas:
-        'header header header header header'
-        'menu main main right right'
-        'menu footer footer footer footer';">
-  <div style="grid-area: main;">
-    <div class="profile-image mb-3" style="margin-left: 10%">
-      <% if @sitter.profile_image.attached? %>
-        <%= image_tag @sitter.profile_image, class: "img-thumbnail" %>
-      <% else %>
-        <%= image_tag 'no-image-profile.png', size: "50x50", class: "img-thumbnail" %>
-      <% end %>
-    </div>
-    <h1 class="title"><%= @sitter.name %></h1>
-    <p>
-      <strong>Name:</strong>
-      <%= @sitter.name %>
-    </p>
-
-    <p>
-      <strong>Email:</strong>
-      <%= @sitter.email %>
-    </p>
-
-    <p>
-      <strong>Phone:</strong>
-      <%= @sitter.phone %>
-    </p>
-
-    <% if @sitter.sitter? %>
-      <p>
-        <strong>Description:</strong>
-        <%= @sitter.sitter_profile.description %>
-      </p>
-
-      <p>
-        <strong>Price:</strong>
-        <%= number_to_currency(@sitter.sitter_profile.rate) %>
-      </p>
-    <% end %>
-  </div>
-
-  <div style="grid-area: right">
-    <div style="height: fit-content; padding: 50px;">
-      <h1 class="title"> Availability </h1>
-      <% if @sitter_service.errors.any? %>
-        <div id="error_explanation">
-          <h1 class="title"><%= pluralize(@sitter_service.errors.count, "error") %> prohibited this schedule from being saved:</h1>
-
-          <ul>
-            <% @sitter_service.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 mb-4 d-flex flex-column justify-content-between">
+      <h1 class="title text-center"><%= @sitter.name %></h1>
+      <div>
+        <div class="profile-image mb-3 text-center">
+          <% if @sitter.profile_image.attached? %>
+            <%= image_tag @sitter.profile_image, class: "img-thumbnail", style: "width: 150px; height: 150px;" %>
+          <% else %>
+            <%= image_tag 'no-image-profile.png', size: "150x150", class: "img-thumbnail" %>
+          <% end %>
         </div>
-      <% end %>
-
-      <%= form_for(@sitter_service, as: :sitter_service, url: sitter_schedule_path(@sitter.id)) do |f| %>
-        <div class="field" style="margin: 2%">
-          <%= f.label 'Schedule date start' %><br/>
-          <%= f.date_field :start_date, min: Date.today, style:"width: 350px;" %>
+        <div class="mb-3">
+          <p class="fw-bold">Email:</p>
+          <p><%= @sitter.email %></p>
         </div>
 
-        <div class="field" style="margin: 2%">
-          <%= f.label 'Schedule date end' %><br/>
-          <%= f.date_field :end_date, min: Date.tomorrow, style:"width: 350px;" %>
+        <div class="mb-3">
+          <p class="fw-bold">Phone:</p>
+          <p><%= @sitter.phone %></p>
         </div>
 
-        <div class="field" style="margin: 2%">
-          <%= f.label 'Your pet' %><br/>
-          <%= f.select :pet_id, @pets_available_for_schedule, selected: @pets_available_for_schedule&.first&.last %>
-        </div>
+        <% if @sitter.sitter? %>
+          <div class="mb-3">
+            <p class="fw-bold">Description:</p>
+            <p><%= @sitter.sitter_profile.description %></p>
+          </div>
 
-        <div class="actions">
-          <%= f.submit "Schedule", id: "submit_button", class: 'btn btn-primary form-control' %>
-        </div>
-    <% end %>
-    </div>
-  </div>
-
-  <div style="grid-area: footer;">
-    <h1 class="mt-xl-5 mb-xl-3 title">Customer Feedback</h1>
-    <div class="container">
-      <div class="row">
-        <% @reviews.each do |review| %>
-          <div class="col-lg-4 col-md-4 col-sm-6">  <!-- Adjust column classes -->
-            <a href="<%= pet_path(review) %>" class="text-decoration-none">
-              <div class="card" style="display: grid; grid-template-areas: 'left-header header right-header' 'main main main' 'footer footer footer';">
-                <div class="mx-lg-4 mt-lg-3" style="grid-area: left-header;">
-                <% if review.person.profile_image.attached? %>  <!-- Use pet instead of @person -->
-                  <%= image_tag review.person.profile_image, alt: review.person.name, class: 'card-img-top rounded-circle mx-auto', style: 'width: 75px; height: 75px;' %>
-                <% else %>
-                  <%= image_tag 'no-image-profile.png', alt: review.person.name, class: 'card-img-top rounded-circle mx-auto', style: 'width: 75px; height: 75px;' %>
-                <% end %>
-                </div>
-                <div style="grid-area: right-header;">
-                  <div class="star-rating m-lg-3 mt-lg-3" style="display: flex;  justify-content: center;">
-                    <p class="card-text"><span class="fa fa-star checked"></span><%= review.stars %></p>
-                  </div>
-                </div>
-                <div class="card-body pb-lg-1" style="grid-area: main;">
-                  <h5 class="card-title"><%= review.person.name %></h5>
-                </div>
-                <div class="card-body pt-lg-1" style="grid-area: footer;">
-                  <p><%= review.comment %></h5>
-                </div>
-              </div>
-            </a>
+          <div class="mb-3">
+            <p class="fw-bold">Price:</p>
+            <p><%= number_to_currency(@sitter.sitter_profile.rate) %></p>
           </div>
         <% end %>
       </div>
+    </div>
+
+    <div class="col-lg-4 mb-4 d-flex flex-column">
+      <div>
+        <h1 class="title text-center">Availability</h1>
+        <% if @sitter_service.errors.any? %>
+          <div class="alert alert-danger">
+            <h4><%= pluralize(@sitter_service.errors.count, "error") %> prohibited this schedule from being saved:</h4>
+            <ul>
+              <% @sitter_service.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <%= form_for(@sitter_service, as: :sitter_service, url: sitter_schedule_path(@sitter.id)) do |f| %>
+          <div class="mb-3">
+            <%= f.label 'Schedule date start' %>
+            <%= f.date_field :start_date, min: Date.today, class: 'form-control' %>
+          </div>
+
+          <div class="mb-3">
+            <%= f.label 'Schedule date end' %>
+            <%= f.date_field :end_date, min: Date.tomorrow, class: 'form-control' %>
+          </div>
+
+          <div class="mb-3">
+            <%= f.label 'Your pet' %>
+            <%= f.select :pet_id, @pets_available_for_schedule, { prompt: 'Select a pet' }, class: 'form-control' %>
+          </div>
+
+          <div class="actions">
+            <%= f.submit "Schedule", id: "submit_button", class: 'btn btn-primary form-control' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-5">
+    <h1 class="title">Customer Feedback</h1>
+    <div class="row">
+      <% @reviews.each do |review| %>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <a href="<%= pet_path(review) %>" class="text-decoration-none">
+            <div class="card">
+              <div class="card-header d-flex align-items-center">
+                <% if review.person.profile_image.attached? %>
+                  <%= image_tag review.person.profile_image, alt: review.person.name, class: 'rounded-circle', style: 'width: 75px; height: 75px;' %>
+                <% else %>
+                  <%= image_tag 'no-image-profile.png', alt: review.person.name, class: 'rounded-circle', style: 'width: 75px; height: 75px;' %>
+                <% end %>
+                <div class="ms-3">
+                  <h5 class="card-title mb-0"><%= review.person.name %></h5>
+                  <div class="star-rating">
+                    <span class="fa fa-star checked"></span><%= review.stars %>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <p class="card-text"><%= review.comment %></p>
+              </div>
+            </div>
+          </a>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
