@@ -17,7 +17,11 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :reviews
+
   get 'sitter/:id', to: 'sitters#show', as: 'sitter'
+  get 'sitter/:sitter_id/reviews/new', to: 'reviews#new', as: 'new_sitter_review'
+  post 'sitter/:sitter_id/reviews', to: 'reviews#create', as: 'sitter_reviews'
   post 'sitter/:id/schedule', to: 'sitters#schedule', as: 'sitter_schedule'
 
   get 'dashboard', to: 'home#dashboard'

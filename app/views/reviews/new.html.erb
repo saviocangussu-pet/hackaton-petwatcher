@@ -1,0 +1,31 @@
+
+<h1>Add a New Review</h1>
+
+
+<%= form_with(model: @review, local: true, url: sitter_reviews_path, class: 'needs-validation' ) do |form| %>
+  <% if @review.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <h2><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h2>
+      <ul>
+        <% @review.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :comment, class: 'form-label' %>
+    <%= form.text_field :comment, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :stars, "Stars", class: 'form-label' %>
+    <%= form.select :stars, (1..5).to_a, { class: 'form-select' } %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Add Review", class: 'btn btn-primary' %>
+    <%= link_to 'Back to my sitting services', sitter_services_path, class: 'btn btn-secondary' %>
+  </div>
+<% end %>

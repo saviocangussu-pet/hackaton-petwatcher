@@ -20,6 +20,7 @@ class Person < ApplicationRecord
   accepts_nested_attributes_for :location
   accepts_nested_attributes_for :pets
 
+  has_many :reviews, as: :reviewable
   scope :sitters, -> { where(sitter: true) }
   scope :owners, -> { where(sitter: false) }
   scope :pet_owners, -> { where(owner: true) }
