@@ -24,7 +24,7 @@
           <strong>Start Date:</strong> <%= service.start_date.strftime("%B %d, %Y") %><br>
           <strong>End Date:</strong> <%= service.end_date.strftime("%B %d, %Y") %><br>
           <strong>Total Rate:</strong> <%= number_to_currency(service.total_rate) %><br>
-          <%= link_to 'Check profile', sitter_path(service), class: 'btn btn-primary' %>
+          <%= link_to 'Check profile', pet_sitter_owner_path(service), class: 'btn btn-primary' %>
         </li>
       <% end %>
     </ul>

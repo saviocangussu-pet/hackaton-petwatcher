@@ -20,6 +20,7 @@ class Person < ApplicationRecord
   accepts_nested_attributes_for :location
 
   scope :sitters, -> { where(sitter: true) }
+  scope :owners, -> { where(sitter: false) }
   scope :pet_owners, -> { where(owner: true) }
 
   scope :closests, lambda { |location|

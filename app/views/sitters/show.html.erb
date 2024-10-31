@@ -38,12 +38,6 @@
         <strong>Price:</strong>
         <%= number_to_currency(@sitter.sitter_profile.rate) %>
       </p>
-
-      <p>
-        <strong>Location:</strong>
-        <%= @sitter.location.latitude %>,
-        <%= @sitter.location.longitude %>
-      </p>
     <% end %>
   </div>
 
@@ -63,17 +57,17 @@
       <% end %>
 
       <%= form_for(@sitter_service, as: :sitter_service, url: sitter_schedule_path(@sitter.id)) do |f| %>
-        <div class="field">
+        <div class="field" style="margin: 2%">
           <%= f.label 'Schedule date start' %><br/>
-          <%= f.date_field :start_date, min: Date.today, style:"width: 200px;" %>
+          <%= f.date_field :start_date, min: Date.today, style:"width: 350px;" %>
         </div>
 
-        <div class="field">
+        <div class="field" style="margin: 2%">
           <%= f.label 'Schedule date end' %><br/>
-          <%= f.date_field :end_date, min: Date.tomorrow, style:"width: 200px;" %>
+          <%= f.date_field :end_date, min: Date.tomorrow, style:"width: 350px;" %>
         </div>
 
-        <div class="field">
+        <div class="field" style="margin: 2%">
           <%= f.label 'Your pet' %><br/>
           <%= f.select :pet_id, @pets_available_for_schedule, selected: @pets_available_for_schedule&.first&.last %>
         </div>
@@ -86,25 +80,32 @@
   </div>
 
   <div style="grid-area: footer;">
-    <h1 class="mt-xl-5 title">Reviews</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Stars</th>
-          <th>Comment</th>
-          <th colspan="3"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @reviews.each do |review| %>
-          <tr>
-            <td><%= review.person.name %></td>
-            <td><%= review.stars %></td>
-            <td><%= review.comment %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <h1 class="mt-xl-5 mb-xl-3 title">Customer Feedback</h1>
+    <% @reviews.each do |review| %>
+      <div class="col-lg-4 col-md-4 col-sm-6">  <!-- Adjust column classes -->
+        <a href="<%= pet_path(review) %>" class="text-decoration-none">
+          <div class="card" style="display: grid; grid-template-areas: 'left-header header right-header' 'main main main' 'footer footer footer';">
+            <div class="mx-lg-4 mt-lg-3" style="grid-area: left-header;">
+            <% if review.person.profile_image.attached? %>  <!-- Use pet instead of @person -->
+              <%= image_tag review.person.profile_image, alt: review.person.name, class: 'card-img-top rounded-circle mx-auto', style: 'width: 75px; height: 75px;' %>
+            <% else %>
+              <%= image_tag 'no-image-profile.png', alt: review.person.name, class: 'card-img-top rounded-circle mx-auto', style: 'width: 75px; height: 75px;' %>
+            <% end %>
+            </div>
+            <div style="grid-area: right-header;">
+              <div class="star-rating m-lg-3 mt-lg-3" style="display: flex;  justify-content: center;">
+                <p class="card-text"><span class="fa fa-star checked"></span><%= review.stars %></p>
+              </div>
+            </div>
+            <div class="card-body pb-lg-1" style="grid-area: main;">
+              <h5 class="card-title"><%= review.person.name %></h5>
+            </div>
+            <div class="card-body pt-lg-1" style="grid-area: footer;">
+              <p><%= review.comment %></h5>
+            </div>
+          </div>
+        </a>
+      </div>
+    <% end %>
   </div>
 </div>
