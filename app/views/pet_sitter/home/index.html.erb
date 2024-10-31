@@ -49,10 +49,10 @@
                 <% else %>
                   <%= image_tag 'no-image-profile.png', alt: pet.name, class: 'rounded-circle mx-auto', style: 'width: 70px; height: 70px;' %>
                 <% end %>
-                              <div>
-                <div class="fw-bold m-2 "><%= pet.name %></div>
-                <p class="card-text"><%= "#{number_with_precision(pet.distance, precision: 2)} KMs" %></p>  
-              </div>
+                <div>
+                  <div class="fw-bold m-2 "><%= pet.name %></div>
+                  <p class="card-text"><%= "#{number_with_precision(pet.distance, precision: 2)} KMs" %></p>  
+                </div>
               </div>
             </div>
             <div class='col-sm-2 flex-end verticaly-centered'>
@@ -66,6 +66,7 @@
             <div class='col-sm-1 verticaly-centered '>
               <span class="badge badge-pill badge-primary"><%= pet.specie.name %></span>
             </div>
+          </div>
         </li>
       </a>
     <% end %>

@@ -1,52 +1,112 @@
-<h1 class="title bigger-title">Hey <%= @person.name%></h1>
-<p class="title-paragraph">Find the perfect sitter near you for Finn!</p>
+<div class='section-wrapper'>
+  <h1 class="title bigger-title">Hey <%= @person.name%></h1>
+  <p class="title-paragraph">Find the perfect sitter near you for Finn!</p>
+</div>
 
-<h1 class="title">Nearest Sitters</h1>
-<div class="container">
-  <div class="row">  <!-- Change "raw" to "row" -->
-    <% @closest_sitters.each do |sitter| %>
-      <div class="col-lg-2 col-md-4 col-sm-6">  <!-- Adjust column classes -->
-        <a href="<%= sitter_path(sitter) %>" class="text-decoration-none">
-          <div class="card card-closest-sitters">
-            <% if sitter.profile_image.attached? %>  <!-- Use sitter instead of @person -->
-              <%= image_tag sitter.profile_image, alt: sitter.name, class: 'card-img-top rounded-circle mx-auto', style: 'width: 100px; height: 100px;' %>
-            <% else %>
-              <%= image_tag 'no-image-profile.png', alt: sitter.name, class: 'card-img-top rounded-circle mx-auto', style: 'width: 100px; height: 100px;' %>
-            <% end %>
-            <div class="card-body text-center">
-              <h5 class="card-title"><%= sitter.name %></h5>
-              <p class="card-text"><%= "#{number_with_precision(sitter.distance, precision: 2)} KMs away" %></p>
+<div class='section-wrapper'>
+  <h1 class="title">Sitters of the Month</h1>
+  <div class="container">
+    <div class="row">  <!-- Change "raw" to "row" -->
+      <% @sitters.first(3).each do |sitter| %>
+        <div class="col-sm-4">
+          <a href="<%= sitter_path(sitter) %>" class="text-decoration-none">
+            <div class='card month-card'>
+              <div class='card-header month-card-header'>
+                <div class='row'>
+                  <div class='col-sm-4'>
+                    <% if sitter.profile_image.attached? %> 
+                      <%= image_tag pesittert.profile_image, alt: sitter.name, class: 'card-img-top rounded-circle mx-auto', style: 'width: 100px; height: 100px;' %>
+                    <% else %>
+                      <%= image_tag 'no-image-profile.png', alt: sitter.name, class: 'card-img-top rounded-circle mx-auto', style: 'width: 100px; height: 100px;' %>
+                    <% end %>
+                  </div>
+                  <div class='col-sm-6 card-title-wrapper'>
+                    <h5 class="card-title"><%= sitter.name %></h5>
+                    <p class="card-text"><%= "#{number_with_precision(sitter.distance, precision: 2)} KMs away" %></p>
+                  </div>
+                  <div class='col-sm-2'>
+                    <div class="star-rating">
+                      <p class="card-text"><span class="fa fa-star checked"></span> 4.5</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='card-body text-center month-card-body'>
+                <p class='card-text' > <%= truncate(sitter.sitter_profile.description, length: 200, omission: '...') %> </p>
+              </div>
+              <div class='card-footer month-card-footer '>
+                <span class="badge badge-pill badge-primary"> $ <%= sitter.sitter_profile.rate %></span>
+              </div>
+            </div>
+          </a>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class='section-wrapper'>
+  <h1 class="title">Nearest Sitters</h1>
+  <div class="container">
+    <div class="row centralized-row">  <!-- Change "raw" to "row" -->
+      <% @closest_sitters.each do |sitter| %>
+        <div class="col-lg-2 col-md-4 col-sm-6">  <!-- Adjust column classes -->
+          <a href="<%= sitter_path(sitter) %>" class="text-decoration-none">
+            <div class="card card-closest-sitters">
+              <% if sitter.profile_image.attached? %>  <!-- Use sitter instead of @person -->
+                <%= image_tag sitter.profile_image, alt: sitter.name, class: 'card-img-top rounded-circle mx-auto', style: 'width: 100px; height: 100px;' %>
+              <% else %>
+                <%= image_tag 'no-image-profile.png', alt: sitter.name, class: 'card-img-top rounded-circle mx-auto', style: 'width: 100px; height: 100px;' %>
+              <% end %>
+              <div class="card-body text-center">
+                <h5 class="card-title"><%= sitter.name %></h5>
+                <p class="card-text"><%= "#{number_with_precision(sitter.distance, precision: 2)} KMs away" %></p>
+                <div class="star-rating">
+                  <p class="card-text"><span class="fa fa-star checked"></span> 4.5</p>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class='section-wrapper'>
+  <h1 class="title">Explore All Sitters</h1>
+  <ol class="list-group">
+    <% @sitters.each do |sitter| %>
+      <a href="<%= sitter_path(sitter) %>" class="text-decoration-none">
+        <li class="list-group-item d-flex justify-content-between align-items-start explore-all-list-item ">
+          <div class='row'>
+            <div class='col-sm-3'>
+              <div class="me-auto d-flex align-items-center">
+                <% if sitter.profile_image.attached? %>
+                  <%= image_tag sitter.profile_image, alt: sitter.name, class: 'rounded-circle mx-auto', style: 'width: 70px; height: 70px;' %>
+                <% else %>
+                  <%= image_tag 'no-image-profile.png', alt: sitter.name, class: 'rounded-circle mx-auto', style: 'width: 70px; height: 70px;' %>
+                <% end %>
+                <div>
+                  <div class="fw-bold m-2 "><%=sitter.name %></div>
+                  <p class="card-text"><%= "#{number_with_precision(sitter.distance, precision: 2)} KMs" %></p>  
+                </div>
+              </div>
+            </div>
+            <div class='col-sm-2 flex-end verticaly-centered'>
               <div class="star-rating">
                 <p class="card-text"><span class="fa fa-star checked"></span> 4.5</p>
               </div>
             </div>
+            <div class='col-sm-6 verticaly-centered'>
+              <p class="m-2 list-description"><%= truncate(sitter.sitter_profile.description, length: 150, omission: '...') %></p>
+            </div>
+            <div class='col-sm-1 verticaly-centered '>
+              <span class="badge badge-pill badge-primary"> $ <%= sitter.sitter_profile.rate %></span>
+            </div>
           </div>
-        </a>
-      </div>
+        </li>
+      </a>
     <% end %>
-  </div>
-</div>
-
-<h1 class="title">Explore All Sitters</h1>
-<ol class="list-group">
-  <% @sitters.each do |sitter| %>
-    <a href="<%= sitter_path(sitter) %>" class="text-decoration-none">
-      <li class="list-group-item d-flex justify-content-between align-items-start">
-        <div class="ms-2 me-auto d-flex align-items-center">
-          <% if sitter.profile_image.attached? %>
-            <%= image_tag sitter.profile_image, alt: sitter.name, class: 'img-thumbnail me-2', style: 'width: 50px; height: 50px;' %>
-          <% else %>
-            <%= image_tag 'no-image-profile.png', alt: sitter.name, class: 'img-thumbnail me-2', style: 'width: 50px; height: 50px;' %>
-          <% end %>
-            <div class="fw-bold m-2"><%= sitter.name %></div>
-            <div class="star-rating"><p class="card-text"><span class="fa fa-star checked"></span> 4.5</p></div>
-            <p class="m-2 list-description"><%= truncate(sitter.sitter_profile.description, length: 80, omission: '...') %></p>
-        </div>
-        <span>
-          <span class="badge text-bg-primary rounded-pill"><%= "$ #{sitter.sitter_profile.rate}" %></span>
-        </span>
-      </li>
-    </a>
-  <% end %>
-</ol>
-
+  </ol>
+</div></div>
