@@ -14,10 +14,12 @@ Leverage Fido Tabby to connect pet owners with people can watch pets in their lo
 - [X] Find sitter by proximity
 - [X] Dual profile (Sitter and Owner at the same time)
 - [X] Rating system (stars and comments)
+- [X] Decent front-end work
 - [X] Owner/Pet/Sitter picture
 - [X] Pet details
-- [X] Accept match service in-app (Match before providing phone)
-- [X] Decent front-end work
+- [X] Date picket to choose a day
+- [X] Review system (review only after end date)
+- [ ] Accept match service in-app (Match before providing phone)
 - [ ] Filter by breed
 - [ ] ~~Schedule system~~
 
