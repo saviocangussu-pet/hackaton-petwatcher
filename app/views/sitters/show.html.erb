@@ -1,96 +1,111 @@
-<h1 class="title"><%= @sitter.name %></h1>
-
-<div class="profile-image mb-3">
-  <% if @sitter.profile_image.attached? %>
-    <%= image_tag @sitter.profile_image, class: "img-thumbnail" %>
-  <% else %>
-    <%= image_tag 'no-image-profile.png', size: "50x50", class: "img-thumbnail" %>
-  <% end %>
-</div>
-
-<p>
-  <strong>Name:</strong>
-  <%= @sitter.name %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @sitter.email %>
-</p>
-
-<p>
-  <strong>Phone:</strong>
-  <%= @sitter.phone %>
-</p>
-
-<% if @sitter.sitter? %>
-  <p>
-    <strong>Description:</strong>
-    <%= @sitter.sitter_profile.description %>
-  </p>
-
-  <p>
-    <strong>Price:</strong>
-    <%= number_to_currency(@sitter.sitter_profile.rate) %>
-  </p>
-
-  <p>
-    <strong>Location:</strong>
-    <%= @sitter.location.latitude %>,
-    <%= @sitter.location.longitude %>
-  </p>
-<% end %>
-
-<% if @sitter_service.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@sitter_service.errors.count, "error") %> prohibited this schedule from being saved:</h2>
-
-    <ul>
-      <% @sitter_service.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+<div style="
+    display: grid;
+    grid-template-areas:
+        'header header header header header'
+        'menu main main right right'
+        'menu footer footer footer footer';">
+  <div style="grid-area: main;">
+    <h1 class="title"><%= @sitter.name %></h1>
+    <div class="profile-image mb-3">
+      <% if @sitter.profile_image.attached? %>
+        <%= image_tag @sitter.profile_image, class: "img-thumbnail" %>
+      <% else %>
+        <%= image_tag 'no-image-profile.png', size: "50x50", class: "img-thumbnail" %>
       <% end %>
-    </ul>
-  </div>
-<% end %>
+    </div>
 
-<%= form_for(@sitter_service, as: :sitter_service, url: sitter_schedule_path(@sitter.id)) do |f| %>
-  <div class="field">
-    <%= f.label 'Schedule date start' %><br/>
-    <%= f.date_field :start_date, min: Date.today %>
-  </div>
+    <p>
+      <strong>Name:</strong>
+      <%= @sitter.name %>
+    </p>
 
-  <div class="field">
-    <%= f.label 'Schedule date end' %><br/>
-    <%= f.date_field :end_date, min: Date.tomorrow %>
-  </div>
+    <p>
+      <strong>Email:</strong>
+      <%= @sitter.email %>
+    </p>
 
-  <div class="field">
-    <%= f.label 'Your pet' %><br/>
-    <%= f.select :pet_id, @pets_available_for_schedule, selected: @pets_available_for_schedule&.first&.last %>
-  </div>
+    <p>
+      <strong>Phone:</strong>
+      <%= @sitter.phone %>
+    </p>
 
-  <div class="actions">
-    <%= f.submit "Schedule", id: "submit_button", class: 'btn btn-primary form-control' %>
-  </div>
-<% end %>
+    <% if @sitter.sitter? %>
+      <p>
+        <strong>Description:</strong>
+        <%= @sitter.sitter_profile.description %>
+      </p>
 
-<h1 class="mt-xl-5">Reviews</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Stars</th>
-      <th>Comment</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @reviews.each do |review| %>
-      <tr>
-        <td><%= review.person.name %></td>
-        <td><%= review.stars %></td>
-        <td><%= review.comment %></td>
-      </tr>
+      <p>
+        <strong>Price:</strong>
+        <%= number_to_currency(@sitter.sitter_profile.rate) %>
+      </p>
+
+      <p>
+        <strong>Location:</strong>
+        <%= @sitter.location.latitude %>,
+        <%= @sitter.location.longitude %>
+      </p>
     <% end %>
-  </tbody>
-</table>
+  </div>
+
+  <div style="grid-area: right">
+    <div style="height: fit-content; padding: 50px;">
+      <h1 class="title"> Availability </h1>
+      <% if @sitter_service.errors.any? %>
+        <div id="error_explanation">
+          <h1 class="title"><%= pluralize(@sitter_service.errors.count, "error") %> prohibited this schedule from being saved:</h1>
+
+          <ul>
+            <% @sitter_service.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form_for(@sitter_service, as: :sitter_service, url: sitter_schedule_path(@sitter.id)) do |f| %>
+        <div class="field">
+          <%= f.label 'Schedule date start' %><br/>
+          <%= f.date_field :start_date, min: Date.today, style:"width: 200px;" %>
+        </div>
+
+        <div class="field">
+          <%= f.label 'Schedule date end' %><br/>
+          <%= f.date_field :end_date, min: Date.tomorrow, style:"width: 200px;" %>
+        </div>
+
+        <div class="field">
+          <%= f.label 'Your pet' %><br/>
+          <%= f.select :pet_id, @pets_available_for_schedule, selected: @pets_available_for_schedule&.first&.last %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "Schedule", id: "submit_button", class: 'btn btn-primary form-control' %>
+        </div>
+    <% end %>
+    </div>
+  </div>
+
+  <div style="grid-area: footer;">
+    <h1 class="mt-xl-5 title">Reviews</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Stars</th>
+          <th>Comment</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @reviews.each do |review| %>
+          <tr>
+            <td><%= review.person.name %></td>
+            <td><%= review.stars %></td>
+            <td><%= review.comment %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
