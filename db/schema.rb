@@ -51,6 +51,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_30_130233) do
     t.string "phone", null: false
     t.boolean "owner", default: false
     t.boolean "sitter", default: false
+    t.string "distance_unit"
     t.integer "location_id"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false

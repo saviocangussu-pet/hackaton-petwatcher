@@ -16,7 +16,7 @@
                 </div>
                 <div class='col-sm-6 card-title-wrapper'>
                   <h5 class="card-title"><%= pet.name %></h5>
-                  <p class="card-text"><%= "#{number_with_precision(pet.distance, precision: 2)} KMs away" %></p>
+                  <p class="card-text"><%= "#{number_with_precision(pet.distance, precision: 2)} #{pet.distance_unit} away" %></p>
                 </div>
                 <div class='col-sm-2'>
                   <div class="star-rating">

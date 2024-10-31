@@ -14,7 +14,8 @@ class Pet < ApplicationRecord
 
     joins(owner: [:location])
       .select(
-        pet_columns.join(', '), Location.distance_from_query(person.location.latitude, person.location.longitude)
+        pet_columns.join(', '), *Location.distance_from_query(person.location.latitude, person.location.longitude,
+                                                              unit: person.fetch_distance_unit)
       ).where.not(
         owner: { id: person.id }
       ).order(distance: :asc)

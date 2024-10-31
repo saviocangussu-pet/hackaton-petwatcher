@@ -13,7 +13,7 @@ class Location < ApplicationRecord
       haversine = harversine_arel(latitude, longitude)
       complete_harversine = Arel.sql('2 * atan2(sqrt(:haversine), sqrt(1 - :haversine))', haversine:)
 
-      Arel.sql('(? * ?) as distance', complete_harversine, EARTH_RADIUS[unit])
+      [Arel.sql('(? * ?) as distance', complete_harversine, EARTH_RADIUS[unit]), Arel.sql('? as distance_unit', unit)]
     end
 
     def harversine_arel(latitude, longitude)

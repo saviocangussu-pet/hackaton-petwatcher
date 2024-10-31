@@ -22,7 +22,7 @@
               <% end %>
               <div class="card-body text-center">
                 <h5 class="card-title"><%= pet.name %></h5>
-                <p class="card-text"><%= "#{number_with_precision(pet.distance, precision: 2)} KMs" %></p>
+                <p class="card-text"><%= "#{number_with_precision(pet.distance, precision: 2)} #{pet.distance_unit}" %></p>
                 <div class="star-rating">
                   <p class="card-text"><span class="fa fa-star checked"></span> 4.5</p>
                 </div>
@@ -51,7 +51,7 @@
                 <% end %>
                 <div>
                   <div class="fw-bold m-2 "><%= pet.name %></div>
-                  <p class="card-text"><%= "#{number_with_precision(pet.distance, precision: 2)} KMs" %></p>  
+                  <p class="card-text"><%= "#{number_with_precision(pet.distance, precision: 2)} #{pet.distance_unit}" %></p>  
                 </div>
               </div>
             </div>

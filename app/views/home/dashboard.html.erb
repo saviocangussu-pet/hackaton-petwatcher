@@ -22,7 +22,7 @@
                   </div>
                   <div class='col-sm-6 card-title-wrapper'>
                     <h5 class="card-title"><%= sitter.name %></h5>
-                    <p class="card-text"><%= "#{number_with_precision(sitter.distance, precision: 2)} KMs away" %></p>
+                    <p class="card-text"><%= "#{number_with_precision(sitter.distance, precision: 2)} #{sitter.distance_unit} away" %></p>
                   </div>
                   <div class='col-sm-2'>
                     <div class="star-rating">
@@ -60,7 +60,7 @@
               <% end %>
               <div class="card-body text-center">
                 <h5 class="card-title"><%= sitter.name %></h5>
-                <p class="card-text"><%= "#{number_with_precision(sitter.distance, precision: 2)} KMs away" %></p>
+                <p class="card-text"><%= "#{number_with_precision(sitter.distance, precision: 2)} #{sitter.distance_unit} away" %></p>
                 <div class="star-rating">
                   <p class="card-text"><span class="fa fa-star checked"></span> 4.5</p>
                 </div>
@@ -89,7 +89,7 @@
                 <% end %>
                 <div>
                   <div class="fw-bold m-2 "><%=sitter.name %></div>
-                  <p class="card-text"><%= "#{number_with_precision(sitter.distance, precision: 2)} KMs" %></p>  
+                  <p class="card-text"><%= "#{number_with_precision(sitter.distance, precision: 2)} #{sitter.distance_unit}" %></p>  
                 </div>
               </div>
             </div>

@@ -10,6 +10,8 @@ class DeviseCreatePeople < ActiveRecord::Migration[7.1]
       t.boolean :owner, default: false
       t.boolean :sitter, default: false
 
+      t.string :distance_unit
+
       t.references :location
 
       ## Database authenticatable
