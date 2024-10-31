@@ -102,6 +102,7 @@ html, body {
     gap: 8px;
     background-color: #DFFFFA;
     height: 100%;
+    border: none;
 }
 
 .card-title {
