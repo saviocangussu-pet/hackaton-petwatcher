@@ -11,9 +11,8 @@
           <% if person_signed_in? %>
             <% if current_person.sitter? %>
               <li class="nav-item"><%= nav_link 'Dashboard', dashboard_path %></li>
-            <% else %>
-              <li class="nav-item"><%= nav_link 'Find a sitter', home_path %></li>
             <% end %>
+            <li class="nav-item"><%= nav_link 'Find a sitter', home_path %></li>
             <li class="nav-item"><%= nav_link 'My pets', pets_path %></li>
             <li class="nav-item"><%= nav_link 'My profile', me_person_path %></li>
             <li class="nav-item"><%= nav_link 'My sitter services', sitter_services_path %></li>
