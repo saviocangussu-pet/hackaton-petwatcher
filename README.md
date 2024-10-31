@@ -14,9 +14,10 @@ Leverage Fido Tabby to connect pet owners with people can watch pets in their lo
 - [X] Find sitter by proximity
 - [X] Dual profile (Sitter and Owner at the same time)
 - [X] Rating system (stars and comments)
-- [ ] Owner/Pet/Sitter picture
-- [ ] Pet details
-- [ ] Accept match service in-app (Match before providing phone)
+- [X] Owner/Pet/Sitter picture
+- [X] Pet details
+- [X] Accept match service in-app (Match before providing phone)
+- [X] Decent front-end work
 - [ ] Filter by breed
 - [ ] ~~Schedule system~~
 
@@ -31,6 +32,8 @@ Leverage Fido Tabby to connect pet owners with people can watch pets in their lo
 ## Technical details
 
 - Authentication: Devise (out of box)
+- CSS: Bootstrap
+- Database: Standard SQLite (out of box rails default)
 
 ## Entity Diagram
 
@@ -46,6 +49,7 @@ erDiagram
   PET ||--o{ SPECIE : has
   PET ||--o{ REVIEW : have
   PERSON ||--o{ REVIEW : have
+  PERSON ||--o| REVIEW : does
 
   SITTER_PROFILE{
     bigint id
@@ -56,7 +60,7 @@ erDiagram
     string name
     string email
     string phone
-    string[] roles
+    bool sitter
   }
   PET {
     bigint id
