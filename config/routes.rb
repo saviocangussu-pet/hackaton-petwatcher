@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   get 'up' => 'rails/health#show', as: :rails_health_check
 
   namespace :pet_sitter do
-    get '/', to: 'home#index'
+    get '/',        to: 'home#index'
+    resources :pets, only: %i[show]
   end
 end

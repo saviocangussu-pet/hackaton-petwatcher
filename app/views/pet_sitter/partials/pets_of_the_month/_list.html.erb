@@ -3,7 +3,7 @@
   <div class="row">  <!-- Change "raw" to "row" -->
     <% @closest_pets.first(3).each do |pet| %>
       <div class="col-sm-4">
-        <a href="<%= pet_path(pet) %>" class="text-decoration-none">
+        <a href="<%= pet_sitter_pet_path(pet) %>" class="text-decoration-none">
           <div class='card month-card'>
             <div class='card-header month-card-header'>
               <div class='row'>

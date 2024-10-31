@@ -146,6 +146,36 @@ html, body {
     line-height: 18.75px;
 }
 
+.centralized-row {
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+}
+/* style related to the explore all  */
+
+.explore-all-list-item {
+    margin-top: 20px;
+    border-radius: 20px !important;
+    background-color: #F2F2F2;
+    border: none;
+    min-height: 120px;
+    display: flex !important;
+    align-items: center !important;
+    width: auto;
+}
+
+/* style related to the nearest cards */
+
+.nearest-card {
+    background-color: #DFFFFA;
+    color: #333333;
+    border-radius: 20px;
+    padding: 20px;
+    border:none;
+}
+
+/* style related to the month cards */
+
 .month-card {
     background-color: #3620AB;
     color: white;
@@ -169,4 +199,9 @@ html, body {
 
 .card-title-wrapper {
     padding-top:30px;
+}
+
+.section-wrapper {
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
